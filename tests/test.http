@@ -1,0 +1,28 @@
+
+###
+GET http://localhost:7071/api/issuers/export
+
+###
+GET http://localhost:7071/api/issuers/export?Id=de891235-405e-4e72-912d-7bd51b4c92b7
+
+###
+GET http://localhost:7071/api/issuers/de891235-405e-4e72-912d-7bd51b4c92b7
+
+###
+POST http://localhost:7071/api/issuers
+Content-Type: application/json
+
+{
+    name: "Beer"
+}
+
+
+###
+POST http://localhost:7071/api/issuers/import
+Content-Type: text/csv
+
+Name,CreatedDate
+SAW Beer Pty Ltd,02/12/2020 11:33:51
+Microsoft Corporation,02/11/2020 11:33:51
+"Amazon.com, Inc.",02/11/2020 23:33:51
+

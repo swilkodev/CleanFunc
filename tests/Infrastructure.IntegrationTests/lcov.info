@@ -1,0 +1,648 @@
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\GetIssuer\GetIssuerQuery.cs
+FN:12,System.Guid CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery::get_Id()
+FNDA:0,System.Guid CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery::get_Id()
+DA:13,0
+FN:19,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery/GetIssuerQueryHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,AutoMapper.IMapper)
+FNDA:0,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery/GetIssuerQueryHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,AutoMapper.IMapper)
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+FN:26,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery/GetIssuerQueryHandler/<Handle>d__3::MoveNext()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQuery/GetIssuerQueryHandler/<Handle>d__3::MoveNext()
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+BRDA:28,55,0,0
+BRDA:28,55,1,0
+LF:13
+LH:0
+BRF:2
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\GetIssuer\GetIssuerQueryValidator.cs
+FN:10,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQueryValidator::.ctor()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerQueryValidator::.ctor()
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\GetIssuer\GetIssuerResponse.cs
+FN:4,CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerResponse::get_Issuer()
+FNDA:0,CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto CleanFunc.Application.Issuers.Queries.GetIssuer.GetIssuerResponse::get_Issuer()
+DA:5,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\GetIssuer\IssuerDto.cs
+FN:9,System.String CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto::get_Name()
+FNDA:0,System.String CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto::get_Name()
+DA:10,0
+FN:11,System.DateTime CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto::get_CreatedDate()
+FNDA:0,System.DateTime CleanFunc.Application.Issuers.Queries.GetIssuer.IssuerDto::get_CreatedDate()
+DA:12,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\ExportIssuers\ExportIssuersQuery.cs
+FN:16,System.Nullable`1<System.Guid> CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery::get_Id()
+FNDA:0,System.Nullable`1<System.Guid> CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery::get_Id()
+DA:17,0
+FN:24,System.Void CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery/ExportIssuersQueryHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,AutoMapper.IMapper,CleanFunc.Application.Common.Interfaces.ICsvFileBuilder)
+FNDA:0,System.Void CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery/ExportIssuersQueryHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,AutoMapper.IMapper,CleanFunc.Application.Common.Interfaces.ICsvFileBuilder)
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+BRDA:27,11,0,0
+BRDA:27,11,1,0
+BRDA:28,33,0,0
+BRDA:28,33,1,0
+BRDA:29,55,0,0
+BRDA:29,55,1,0
+FN:32,System.Void CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery/ExportIssuersQueryHandler/<Handle>d__4::MoveNext()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersQuery/ExportIssuersQueryHandler/<Handle>d__4::MoveNext()
+DA:33,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:54,0
+DA:55,0
+BRDA:35,109,0,0
+BRDA:37,145,0,0
+BRDA:37,145,1,0
+BRDA:35,109,1,0
+BRDA:41,443,0,0
+BRDA:41,443,1,0
+BRDA:47,655,0,0
+BRDA:47,655,1,0
+BRDA:54,850,0,0
+BRDA:54,850,1,0
+LF:26
+LH:0
+BRF:16
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\ExportIssuers\ExportIssuersResponse.cs
+FN:4,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_FileName()
+FNDA:0,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_FileName()
+DA:5,0
+FN:6,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_ContentType()
+FNDA:0,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_ContentType()
+DA:7,0
+FN:8,System.Byte[] CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_Content()
+FNDA:0,System.Byte[] CleanFunc.Application.Issuers.Queries.ExportIssuers.ExportIssuersResponse::get_Content()
+DA:9,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Queries\ExportIssuers\IssuerRecord.cs
+FN:9,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.IssuerRecord::get_Name()
+FNDA:0,System.String CleanFunc.Application.Issuers.Queries.ExportIssuers.IssuerRecord::get_Name()
+DA:10,0
+FN:11,System.DateTime CleanFunc.Application.Issuers.Queries.ExportIssuers.IssuerRecord::get_CreatedDate()
+FNDA:0,System.DateTime CleanFunc.Application.Issuers.Queries.ExportIssuers.IssuerRecord::get_CreatedDate()
+DA:12,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Commands\CreateIssuer\CreateIssuerCommand.cs
+FN:13,System.String CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand::get_Name()
+FNDA:0,System.String CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand::get_Name()
+DA:14,0
+FN:15,System.Guid CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand::get_SomeGuid()
+FNDA:0,System.Guid CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand::get_SomeGuid()
+DA:16,0
+FN:22,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand/CreateIssuerCommandHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,CleanFunc.Application.Common.Interfaces.IAuditor)
+FNDA:0,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand/CreateIssuerCommandHandler::.ctor(CleanFunc.Application.Common.Interfaces.IIssuerRepository,CleanFunc.Application.Common.Interfaces.IAuditor)
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+BRDA:25,11,0,0
+BRDA:25,11,1,0
+BRDA:26,33,0,0
+BRDA:26,33,1,0
+FN:29,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand/CreateIssuerCommandHandler/<Handle>d__3::MoveNext()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommand/CreateIssuerCommandHandler/<Handle>d__3::MoveNext()
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:37,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:46,0
+DA:47,0
+BRDA:30,14,0,0
+BRDA:37,102,0,0
+BRDA:37,102,1,0
+BRDA:44,238,0,0
+BRDA:30,14,1,0
+BRDA:44,238,1,0
+LF:21
+LH:0
+BRF:10
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Commands\CreateIssuer\CreateIssuerCommandValidator.cs
+FN:6,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommandValidator::.ctor()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Commands.CreateIssuer.CreateIssuerCommandValidator::.ctor()
+DA:7,0
+DA:8,0
+DA:9,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Issuers\Commands\CreateAudit\CreateAuditCommand.cs
+FN:10,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_ActionName()
+FNDA:0,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_ActionName()
+DA:11,0
+FN:11,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_User()
+FNDA:0,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_User()
+DA:12,0
+FN:12,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_UserType()
+FNDA:0,System.String CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_UserType()
+DA:13,0
+FN:13,System.Guid CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_CorrelationId()
+FNDA:0,System.Guid CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::get_CorrelationId()
+DA:14,0
+FN:15,System.Void CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::.ctor()
+FNDA:0,System.Void CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand::.ctor()
+DA:16,0
+DA:17,0
+DA:18,0
+FN:29,System.Threading.Tasks.Task CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander::Handle(CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander::Handle(CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand,System.Threading.CancellationToken)
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:36,0
+DA:37,0
+FN:23,System.Void CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander::.ctor(Microsoft.Extensions.Logging.ILogger`1<CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander>)
+FNDA:0,System.Void CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander::.ctor(Microsoft.Extensions.Logging.ILogger`1<CleanFunc.Application.Issuers.Commands.CreateAudit.CreateAuditCommand/CreateAuditCommandHander>)
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+LF:17
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Common\Mappings\IMapFrom.cs
+FN:6,System.Void CleanFunc.Application.Common.Mappings.IMapFrom`1::Mapping(AutoMapper.Profile)
+FNDA:0,System.Void CleanFunc.Application.Common.Mappings.IMapFrom`1::Mapping(AutoMapper.Profile)
+DA:7,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Common\Mappings\MappingProfile.cs
+FN:15,System.Void CleanFunc.Application.Common.Mappings.MappingProfile::ApplyMappingsFromAssembly(System.Reflection.Assembly)
+FNDA:0,System.Void CleanFunc.Application.Common.Mappings.MappingProfile::ApplyMappingsFromAssembly(System.Reflection.Assembly)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:27,0
+DA:29,0
+DA:31,0
+DA:32,0
+BRDA:17,13,0,0
+BRDA:17,13,1,0
+BRDA:22,146,1,0
+BRDA:26,87,0,0
+BRDA:26,87,1,0
+BRDA:29,115,1,0
+BRDA:29,115,0,0
+BRDA:22,146,0,0
+BRDA:18,12,0,0
+BRDA:18,12,1,0
+BRDA:19,6,0,0
+BRDA:19,6,1,0
+FN:9,System.Void CleanFunc.Application.Common.Mappings.MappingProfile::.ctor()
+FNDA:0,System.Void CleanFunc.Application.Common.Mappings.MappingProfile::.ctor()
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+LF:17
+LH:0
+BRF:12
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Common\Exceptions\NotFoundException.cs
+FN:7,System.Void CleanFunc.Application.Common.Exceptions.NotFoundException::.ctor(System.String,System.Object)
+FNDA:0,System.Void CleanFunc.Application.Common.Exceptions.NotFoundException::.ctor(System.String,System.Object)
+DA:8,0
+DA:9,0
+DA:10,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Common\Exceptions\ValidationException.cs
+FN:30,System.Collections.Generic.IDictionary`2<System.String,System.String[]> CleanFunc.Application.Common.Exceptions.ValidationException::get_Failures()
+FNDA:0,System.Collections.Generic.IDictionary`2<System.String,System.String[]> CleanFunc.Application.Common.Exceptions.ValidationException::get_Failures()
+DA:31,0
+FN:10,System.Void CleanFunc.Application.Common.Exceptions.ValidationException::.ctor()
+FNDA:0,System.Void CleanFunc.Application.Common.Exceptions.ValidationException::.ctor()
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+FN:16,System.Void CleanFunc.Application.Common.Exceptions.ValidationException::.ctor(System.Collections.Generic.List`1<FluentValidation.Results.ValidationFailure>)
+FNDA:0,System.Void CleanFunc.Application.Common.Exceptions.ValidationException::.ctor(System.Collections.Generic.List`1<FluentValidation.Results.ValidationFailure>)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:27,0
+DA:28,0
+DA:29,0
+BRDA:19,15,0,0
+BRDA:19,15,1,0
+BRDA:19,46,0,0
+BRDA:19,46,1,0
+BRDA:22,132,1,0
+BRDA:22,132,0,0
+LF:16
+LH:0
+BRF:6
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Application\Common\Behaviours\RequestValidationBehavior.cs
+FN:20,System.Threading.Tasks.Task`1<TResponse> CleanFunc.Application.Common.Behaviours.RequestValidationBehavior`2::Handle(TRequest,System.Threading.CancellationToken,MediatR.RequestHandlerDelegate`1<TResponse>)
+FNDA:0,System.Threading.Tasks.Task`1<TResponse> CleanFunc.Application.Common.Behaviours.RequestValidationBehavior`2::Handle(TRequest,System.Threading.CancellationToken,MediatR.RequestHandlerDelegate`1<TResponse>)
+DA:21,0
+DA:22,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:35,0
+DA:36,0
+BRDA:24,53,0,0
+BRDA:24,53,1,0
+BRDA:24,89,0,0
+BRDA:24,89,1,0
+BRDA:30,136,0,0
+BRDA:30,136,1,0
+FN:14,System.Void CleanFunc.Application.Common.Behaviours.RequestValidationBehavior`2::.ctor(System.Collections.Generic.IEnumerable`1<FluentValidation.IValidator`1<TRequest>>)
+FNDA:0,System.Void CleanFunc.Application.Common.Behaviours.RequestValidationBehavior`2::.ctor(System.Collections.Generic.IEnumerable`1<FluentValidation.IValidator`1<TRequest>>)
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+LF:16
+LH:0
+BRF:6
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:d:\Dev\CleanFunc\src\Domain\Entities\BaseEntity.cs
+FN:7,TId CleanFunc.Domain.Entities.BaseEntity`1::get_Id()
+FNDA:0,TId CleanFunc.Domain.Entities.BaseEntity`1::get_Id()
+DA:8,0
+FN:8,System.DateTime CleanFunc.Domain.Entities.BaseEntity`1::get_CreatedDate()
+FNDA:0,System.DateTime CleanFunc.Domain.Entities.BaseEntity`1::get_CreatedDate()
+DA:9,0
+FN:9,System.Nullable`1<System.DateTime> CleanFunc.Domain.Entities.BaseEntity`1::get_ModifiedDate()
+FNDA:0,System.Nullable`1<System.DateTime> CleanFunc.Domain.Entities.BaseEntity`1::get_ModifiedDate()
+DA:10,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:d:\Dev\CleanFunc\src\Domain\Entities\Issuer.cs
+FN:6,System.String CleanFunc.Domain.Entities.Issuer::get_Name()
+FNDA:0,System.String CleanFunc.Domain.Entities.Issuer::get_Name()
+DA:7,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:d:\Dev\CleanFunc\src\Domain\Entities\AuditRecord.cs
+FN:4,System.String Domain.Entities.AuditRecord::get_ActionName()
+FNDA:2,System.String Domain.Entities.AuditRecord::get_ActionName()
+DA:5,2
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Services\Auditor.cs
+FN:20,System.Threading.Tasks.Task CleanFunc.Infrastructure.Services.Auditor::AddAsync(Domain.Entities.AuditRecord)
+FNDA:1,System.Threading.Tasks.Task CleanFunc.Infrastructure.Services.Auditor::AddAsync(Domain.Entities.AuditRecord)
+DA:21,1
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+DA:28,1
+DA:29,1
+DA:30,1
+DA:31,1
+DA:32,1
+FN:13,System.Void CleanFunc.Infrastructure.Services.Auditor::.ctor(CleanFunc.Application.Common.Interfaces.ICallContext,CleanFunc.Infrastructure.Services.IMessageSenderFactory)
+FNDA:1,System.Void CleanFunc.Infrastructure.Services.Auditor::.ctor(CleanFunc.Application.Common.Interfaces.ICallContext,CleanFunc.Infrastructure.Services.IMessageSenderFactory)
+DA:14,1
+DA:15,1
+DA:16,1
+DA:17,1
+DA:18,1
+FN:39,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_ActionName()
+FNDA:0,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_ActionName()
+DA:40,0
+FN:40,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_User()
+FNDA:0,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_User()
+DA:41,0
+FN:41,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_UserType()
+FNDA:0,System.String CleanFunc.Infrastructure.Services.AuditCommand::get_UserType()
+DA:42,0
+FN:42,System.Guid CleanFunc.Infrastructure.Services.AuditCommand::get_CorrelationId()
+FNDA:0,System.Guid CleanFunc.Infrastructure.Services.AuditCommand::get_CorrelationId()
+DA:43,0
+LF:20
+LH:16
+BRF:0
+BRH:0
+FNF:6
+FNH:2
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Services\ServiceBusSender.cs
+FN:30,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender::Dispose()
+FNDA:0,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender::Dispose()
+DA:31,0
+DA:32,0
+DA:33,0
+FN:14,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender::.ctor(System.String,System.String)
+FNDA:8,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender::.ctor(System.String,System.String)
+DA:15,8
+DA:16,8
+DA:17,8
+DA:18,0
+DA:19,0
+DA:22,8
+DA:23,0
+DA:24,0
+DA:27,8
+DA:28,8
+BRDA:17,14,0,0
+BRDA:17,14,1,8
+BRDA:22,34,0,0
+BRDA:22,34,1,8
+FN:35,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender/<SendAsync>d__3`1::MoveNext()
+FNDA:0,System.Void CleanFunc.Infrastructure.Services.ServiceBusSender/<SendAsync>d__3`1::MoveNext()
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:41,0
+DA:42,0
+BRDA:41,124,0,0
+BRDA:41,124,1,0
+LF:19
+LH:6
+BRF:6
+BRH:2
+FNF:3
+FNH:1
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Services\ServiceBusSenderFactory.cs
+FN:23,CleanFunc.Infrastructure.Services.IMessageSender CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::Create(System.String)
+FNDA:4,CleanFunc.Infrastructure.Services.IMessageSender CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::Create(System.String)
+DA:24,4
+DA:25,4
+DA:26,4
+DA:29,4
+DA:30,4
+DA:31,4
+FN:39,CleanFunc.Infrastructure.Services.IMessageSender CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::Create()
+FNDA:4,CleanFunc.Infrastructure.Services.IMessageSender CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::Create()
+DA:40,4
+DA:41,4
+DA:42,4
+DA:44,4
+DA:47,4
+DA:48,4
+DA:49,4
+FN:10,System.Void CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::.ctor(Microsoft.Extensions.Configuration.IConfiguration)
+FNDA:4,System.Void CleanFunc.Infrastructure.Services.ServiceBusSenderFactory::.ctor(Microsoft.Extensions.Configuration.IConfiguration)
+DA:11,4
+DA:13,4
+DA:14,4
+DA:15,4
+DA:16,4
+LF:18
+LH:18
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Persistence\IssuerRepository.cs
+FN:13,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Add(CleanFunc.Domain.Entities.Issuer)
+FNDA:0,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Add(CleanFunc.Domain.Entities.Issuer)
+DA:14,0
+DA:15,0
+DA:16,0
+FN:18,System.Threading.Tasks.Task`1<System.Int32> CleanFunc.Infrastructure.Persistence.IssuerRepository::CountAll()
+FNDA:0,System.Threading.Tasks.Task`1<System.Int32> CleanFunc.Infrastructure.Persistence.IssuerRepository::CountAll()
+DA:19,0
+DA:20,0
+FN:23,System.Threading.Tasks.Task`1<System.Int32> CleanFunc.Infrastructure.Persistence.IssuerRepository::CountWhere(System.Linq.Expressions.Expression`1<System.Func`2<CleanFunc.Domain.Entities.Issuer,System.Boolean>>)
+FNDA:0,System.Threading.Tasks.Task`1<System.Int32> CleanFunc.Infrastructure.Persistence.IssuerRepository::CountWhere(System.Linq.Expressions.Expression`1<System.Func`2<CleanFunc.Domain.Entities.Issuer,System.Boolean>>)
+DA:24,0
+DA:25,0
+FN:28,System.Threading.Tasks.Task`1<CleanFunc.Domain.Entities.Issuer> CleanFunc.Infrastructure.Persistence.IssuerRepository::FirstOrDefault(System.Linq.Expressions.Expression`1<System.Func`2<CleanFunc.Domain.Entities.Issuer,System.Boolean>>)
+FNDA:0,System.Threading.Tasks.Task`1<CleanFunc.Domain.Entities.Issuer> CleanFunc.Infrastructure.Persistence.IssuerRepository::FirstOrDefault(System.Linq.Expressions.Expression`1<System.Func`2<CleanFunc.Domain.Entities.Issuer,System.Boolean>>)
+DA:29,0
+DA:30,0
+FN:33,System.Threading.Tasks.Task`1<System.Collections.Generic.IEnumerable`1<CleanFunc.Domain.Entities.Issuer>> CleanFunc.Infrastructure.Persistence.IssuerRepository::GetAll()
+FNDA:0,System.Threading.Tasks.Task`1<System.Collections.Generic.IEnumerable`1<CleanFunc.Domain.Entities.Issuer>> CleanFunc.Infrastructure.Persistence.IssuerRepository::GetAll()
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+FN:42,System.Threading.Tasks.Task`1<CleanFunc.Domain.Entities.Issuer> CleanFunc.Infrastructure.Persistence.IssuerRepository::GetById(System.Guid)
+FNDA:0,System.Threading.Tasks.Task`1<CleanFunc.Domain.Entities.Issuer> CleanFunc.Infrastructure.Persistence.IssuerRepository::GetById(System.Guid)
+DA:43,0
+DA:44,0
+DA:45,0
+FN:53,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Remove(CleanFunc.Domain.Entities.Issuer)
+FNDA:0,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Remove(CleanFunc.Domain.Entities.Issuer)
+DA:54,0
+DA:55,0
+FN:58,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Update(CleanFunc.Domain.Entities.Issuer)
+FNDA:0,System.Threading.Tasks.Task CleanFunc.Infrastructure.Persistence.IssuerRepository::Update(CleanFunc.Domain.Entities.Issuer)
+DA:59,0
+DA:60,0
+FN:47,System.Void CleanFunc.Infrastructure.Persistence.IssuerRepository/<GetWhere>d__6::MoveNext()
+FNDA:0,System.Void CleanFunc.Infrastructure.Persistence.IssuerRepository/<GetWhere>d__6::MoveNext()
+DA:48,0
+DA:50,0
+DA:51,0
+BRDA:50,39,0,0
+BRDA:50,39,1,0
+LF:26
+LH:0
+BRF:2
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Files\CsvFileBuilder.cs
+FN:14,System.Void CleanFunc.Infrastructure.Files.CsvFileBuilder::.ctor()
+FNDA:1,System.Void CleanFunc.Infrastructure.Files.CsvFileBuilder::.ctor()
+DA:15,1
+DA:17,1
+DA:18,1
+DA:19,1
+DA:20,1
+FN:22,System.Void CleanFunc.Infrastructure.Files.CsvFileBuilder/<BuildFileAsync>d__2`1::MoveNext()
+FNDA:1,System.Void CleanFunc.Infrastructure.Files.CsvFileBuilder/<BuildFileAsync>d__2`1::MoveNext()
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+DA:30,5
+DA:31,1
+DA:32,1
+DA:33,1
+DA:35,1
+DA:36,1
+DA:38,1
+DA:39,1
+BRDA:24,28,0,1
+BRDA:24,28,1,1
+BRDA:25,53,0,1
+BRDA:25,53,1,1
+BRDA:27,84,0,1
+BRDA:30,178,1,1
+BRDA:30,178,0,1
+BRDA:35,247,0,0
+BRDA:27,84,1,0
+BRDA:35,247,1,1
+LF:18
+LH:18
+BRF:10
+BRH:8
+FNF:2
+FNH:2
+end_of_record
+SF:D:\Dev\CleanFunc\src\Infrastructure\Files\IssuerRecordMap.cs
+FN:7,System.Void CleanFunc.Infrastructure.Files.IssuerRecordMap::.ctor()
+FNDA:1,System.Void CleanFunc.Infrastructure.Files.IssuerRecordMap::.ctor()
+DA:8,1
+DA:9,1
+DA:10,1
+DA:12,1
+LF:4
+LH:4
+BRF:0
+BRH:0
+FNF:1
+FNH:1
+end_of_record
