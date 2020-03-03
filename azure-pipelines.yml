@@ -11,10 +11,14 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  majorVersion: 1
+  minorVersion: 0
+
+name: $(local-MajorVersion).$(local-MinorVersion).$(Rev:r)
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet test --configuration $(buildConfiguration)
   displayName: 'dotnet test $(buildConfiguration)'
