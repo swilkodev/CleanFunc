@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-      <ProjectReference Include="..\..\Src\Application\Application.csproj" />
-      <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
-      <ProjectReference Include="..\..\Src\Infrastructure\Infrastructure.csproj" />
-      <ProjectReference Include="..\..\Src\FunctionApp\CleanFunc.csproj" />
+      <ProjectReference Include="..\..\src\Application\Application.csproj" />
+      <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+      <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\FunctionApp\CleanFunc.csproj" />
     </ItemGroup>
 
 </Project>
