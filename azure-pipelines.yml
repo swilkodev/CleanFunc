@@ -14,7 +14,7 @@ variables:
   majorVersion: 1
   minorVersion: 0
 
-name: $(local-MajorVersion).$(local-MinorVersion).$(Rev:r)
+name: $(majorVersion).$(minorVersion).$(Rev:r)
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
