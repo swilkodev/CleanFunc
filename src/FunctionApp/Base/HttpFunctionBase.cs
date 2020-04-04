@@ -9,12 +9,17 @@ using Newtonsoft.Json;
 
 namespace CleanFunc.FunctionApp.Base
 {
+    /// <summary>
+    /// Represents the base class for an azure http triggered function, which allows us to initialize the call context prior to using mediator
+    /// to call the application. We can also translate exceptions back into their HTTP equivilents. Normally this sort of thing would be done
+    /// in a middleware layer however azure functons lack middleware support at this time.
+    /// </summary>
     public abstract class HttpFunctionBase
     {
         private readonly IMediator mediator;
-        private readonly ICallContextProvider context;
+        private readonly ICallContext context;
 
-        protected HttpFunctionBase(IMediator mediator, ICallContextProvider context)
+        protected HttpFunctionBase(IMediator mediator, ICallContext context)
         {
             this.mediator = mediator;
             this.context = context;
@@ -28,13 +33,11 @@ namespace CleanFunc.FunctionApp.Base
         {
             try
             {
+                // Populate the context with information. This can be used by injecting the call context into any class
                 this.context.CorrelationId = executionContext.InvocationId;
+                this.context.FunctionName = executionContext.FunctionName;
                 this.context.UserName = httpRequest.HttpContext.User?.Identity?.Name;
-                this.context.UserType = httpRequest.HttpContext.User?.Identity?.AuthenticationType;
-                // if(httpRequest.Headers.TryGetValue("X-API-KEY", out var apiKey))
-                // {
-                    
-                // }
+                this.context.AuthenticationType = httpRequest.HttpContext.User?.Identity?.AuthenticationType;
 
                 var response = await mediator.Send(request);
 
@@ -45,17 +48,6 @@ namespace CleanFunc.FunctionApp.Base
             }
             catch (Application.Common.Exceptions.ValidationException validationException)
             {
-                // var result = new
-                // {
-                //     message = "Validation failed.",
-                //     errors = validationException.Failures.Select(x => new
-                //     {
-                //         x.PropertyName,
-                //         x.ErrorMessage,
-                //         x.ErrorCode
-                //     })
-                // };
-
                 var result = JsonConvert.SerializeObject(validationException.Failures);
 
                 return new BadRequestObjectResult(result);

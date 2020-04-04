@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using CleanFunc.Application.Common.Interfaces;
-using CleanFunc.Domain.Entities;
+using CleanFunc.Application.Common.Models;
 using MediatR;
 
 namespace CleanFunc.Application.Common.Behaviours
@@ -19,11 +19,12 @@ namespace CleanFunc.Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            bool requiresAudit = request is IAuditHandler<TRequest>;
-            AuditDetail detail = null;
+            bool requiresAudit = request is IAuditableRequest<TRequest>;
+            Models.AuditEntry entry = null;
             if(requiresAudit)
             {
-                detail = await (request as IAuditHandler<TRequest>).HandleAsync(new AuditContext<TRequest>(request));
+                // Create audit entry
+                entry = await (request as IAuditableRequest<TRequest>).CreateEntryAsync(request);
             }
 
             try
@@ -32,11 +33,10 @@ namespace CleanFunc.Application.Common.Behaviours
 
                 if(requiresAudit)
                 {
-                    var entry=new AuditRecord(request.GetType().Name, detail)
-                    {
-                        ActionStatus = AuditActionStatus.Success
-                    };
-                    await this.auditor.AddAsync(entry);
+                    // record successful audit
+                    await this.auditor.AddAsync(
+                        new Models.Audit(outcome: AuditOutcome.Success, entry)
+                    );
                 }
 
                 return response;
@@ -46,12 +46,10 @@ namespace CleanFunc.Application.Common.Behaviours
                 // Error
                 if(requiresAudit)
                 {
-                    var entry=new AuditRecord(request.GetType().Name, detail)
-                    {
-                        ActionStatus = AuditActionStatus.Failure,
-                        Reason = ex.Message
-                    };
-                    await this.auditor.AddAsync(entry);
+                    // record audit failure
+                    await this.auditor.AddAsync(
+                        new Models.Audit(outcome: AuditOutcome.Failure, entry, reason: ex.Message)
+                    );
                 }
                 throw;
             }

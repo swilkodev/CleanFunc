@@ -1,10 +1,17 @@
 using System;
+using System.Collections.Generic;
 
 namespace CleanFunc.Application.Common.Interfaces
 {
-    public interface ICallContextProvider
+    public interface ICallContext
     {
         Guid CorrelationId
+        {
+            get;
+            set;
+        }
+
+        string FunctionName
         {
             get;
             set;
@@ -16,10 +23,15 @@ namespace CleanFunc.Application.Common.Interfaces
             set;
         }
 
-        string UserType 
+        string AuthenticationType
         {
             get;
             set;
+        }
+
+        IDictionary<string, string> AdditionalProperties
+        {
+            get;
         }
     }
 }

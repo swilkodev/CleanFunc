@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using CleanFunc.Application.Common.Interfaces;
 using CleanFunc.Infrastructure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Moq;

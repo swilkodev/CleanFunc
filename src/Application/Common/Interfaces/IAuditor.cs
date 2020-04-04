@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using CleanFunc.Domain.Entities;
+using CleanFunc.Application.Common.Models;
 
 namespace CleanFunc.Application.Common.Interfaces
 {
     public interface IAuditor
     {
-         Task AddAsync(AuditRecord record);
+         Task AddAsync(Models.Audit record);
     }
 }

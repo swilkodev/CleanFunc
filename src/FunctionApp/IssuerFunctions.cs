@@ -26,7 +26,7 @@ namespace CleanFunc.FunctionApp
     public class IssuerFunctions : HttpFunctionBase
     {
         public IssuerFunctions(IMediator mediator, 
-                                ICallContextProvider callContext) 
+                                ICallContext callContext) 
             : base(mediator, 
                     callContext)
         {

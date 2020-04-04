@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.Security.Authentication.ExtendedProtection;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
@@ -9,7 +8,6 @@ using CleanFunc.Application.Common.Interfaces;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.ServiceBus.Core;
 using Newtonsoft.Json;
-
 
 namespace CleanFunc.Infrastructure.ServiceBus
 {

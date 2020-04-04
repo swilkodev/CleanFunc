@@ -3,6 +3,7 @@ using Xunit;
 using NetArchTest.Rules;
 using System.Reflection;
 using System.Text;
+using CleanFunc.FunctionApp.Base;
 
 namespace Solution.ArchitectureTests
 {
@@ -10,48 +11,36 @@ namespace Solution.ArchitectureTests
     {
         private static Assembly FunctionAppAssembly => typeof(CleanFunc.FunctionApp.Startup).Assembly;
         
-        //[Fact]
-        public void Controllers_MustHaveNameEndingInController()
+        [Fact]
+        public void FunctionsClass_MustHaveNameEndingInFunctions()
         {
             var result = Types.InAssembly(FunctionAppAssembly)
                 .That()
                 .ResideInNamespace("CleanFunc.FunctionApp")
                 .And().AreClasses()
                 .And().AreNotAbstract()
-                .Should().HaveNameEndingWith("Manager")
-                .GetResult();
-            
-            Assert.True(result.IsSuccessful, GetErrorMessage(result));
-        }
-        
-        //[Fact]
-        public void Controllers_MustNotDependOnInfrastructure()
-        {
-            var result = Types.InAssembly(FunctionAppAssembly)
-                .That()
-                .ResideInNamespace("CleanFunc.FunctionApp")
-                .ShouldNot()
-                .HaveDependencyOn("CleanFunc.Infrastructure")
+                .And().Inherit(typeof(HttpFunctionBase))
+                .Should().HaveNameEndingWith("Functions")
                 .GetResult();
             
             Assert.True(result.IsSuccessful, GetErrorMessage(result));
         }
         
         // [Fact]
-        // public void Controllers_MustNotDependOnPersistence()
+        // public void Controllers_MustNotDependOnInfrastructure()
         // {
         //     var result = Types.InAssembly(FunctionAppAssembly)
         //         .That()
-        //         .ResideInNamespace("Northwind.WebUI.Controllers")
+        //         .ResideInNamespace("CleanFunc.FunctionApp")
         //         .ShouldNot()
-        //         .HaveDependencyOn("CleanFunc.Persistence")
+        //         .HaveDependencyOn("CleanFunc.Infrastructure")
         //         .GetResult();
             
         //     Assert.True(result.IsSuccessful, GetErrorMessage(result));
         // }
         
         [Fact]
-        public void Controllers_MustNotDependOnDomain()
+        public void Functions_MustNotDependOnDomain()
         {
             var result = Types.InAssembly(FunctionAppAssembly)
                 .That()

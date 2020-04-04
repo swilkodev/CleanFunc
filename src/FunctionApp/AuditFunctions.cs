@@ -11,12 +11,12 @@ using Microsoft.Extensions.Logging;
 namespace CleanFunc.FunctionApp
 {
     /// <summary>
-    /// NOTE: Just an example of consuming messages from service bus. Would normally be in a different service.
+    /// NOTE: Just an example of consuming messages from service bus. Would normally be in a different service/solution.
     /// </summary>
     public class AuditFunctions : ServiceBusFunctionBase
     {
         public AuditFunctions(IMediator mediator, 
-                                ICallContextProvider callContext) 
+                                ICallContext callContext) 
             : base(mediator, 
                     callContext)
         {

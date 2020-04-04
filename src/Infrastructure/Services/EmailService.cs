@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using CleanFunc.Application.Common.Interfaces;
+using CleanFunc.Application.Common.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CleanFunc.Infrastructure.Services
@@ -18,6 +19,8 @@ namespace CleanFunc.Infrastructure.Services
             Guard.Against.Null(message, nameof(message));
 
             logger.LogCritical("Sending email");
+            
+            // Likely use something like SendGrid here
 
             return Task.CompletedTask;
         }

@@ -13,8 +13,6 @@ namespace CleanFunc.FunctionApp
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var services = builder.Services;
-
-            services.AddScoped<IMessageEnricher,AzureFunctionServiceBusCausalityEnricher>();
             
             services.AddApplication();
 

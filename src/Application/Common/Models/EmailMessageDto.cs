@@ -1,4 +1,4 @@
-namespace CleanFunc.Application.Common.Interfaces
+namespace CleanFunc.Application.Common.Models
 {
     public class EmailMessageDto
     {

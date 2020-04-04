@@ -20,9 +20,10 @@ namespace CleanFunc.Infrastructure
             services.AddTransient<ICsvFileReader, CsvFileReader>();
             services.AddTransient<IAuditor, Auditor>();
             services.AddTransient<IEmailService, EmailService>();
-            services.AddScoped<ICallContextProvider, MutableCallContextProvider>();
+            // note: the below dependencies use a scope context (per call scope)
+            services.AddScoped<ICallContext, MutableCallContext>();
             services.AddScoped<IBusFactory,ServiceBusFactory>();
-            
+            services.AddScoped<IMessageEnricher,AzureFunctionServiceBusCausalityEnricher>();
             return services;
         }
     }

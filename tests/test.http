@@ -1,23 +1,22 @@
 
-###
+### Export all ussuers
 GET http://localhost:7071/api/issuers/export
 
-###
+### Export a specific issuer details
 GET http://localhost:7071/api/issuers/export?Id=de891235-405e-4e72-912d-7bd51b4c92b7
 
-###
+### Retrieve specific issuer details
 GET http://localhost:7071/api/issuers/de891235-405e-4e72-912d-7bd51b4c92b7
 
-###
+### Create an issuer
 POST http://localhost:7071/api/issuers
 Content-Type: application/json
 
 {
-    name: "Beer"
+    name: "Netflix, Inc"
 }
 
-
-###
+### Import a list of issuers
 POST http://localhost:7071/api/issuers/import
 Content-Type: text/csv
 

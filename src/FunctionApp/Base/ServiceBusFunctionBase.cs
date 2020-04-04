@@ -11,9 +11,9 @@ namespace CleanFunc.FunctionApp.Base
     public class ServiceBusFunctionBase
     {
         private readonly IMediator mediator;
-        private readonly ICallContextProvider context;
+        private readonly ICallContext context;
 
-        protected ServiceBusFunctionBase(IMediator mediator, ICallContextProvider context)
+        protected ServiceBusFunctionBase(IMediator mediator, ICallContext context)
         {
             this.mediator = mediator;
             this.context = context;
@@ -23,46 +23,17 @@ namespace CleanFunc.FunctionApp.Base
                                                                     Message message) 
             where TRequest : IRequest
         {
-            //try
-            //{
-                string contents = Encoding.UTF8.GetString(message.Body);
-                var request = JsonConvert.DeserializeObject<TRequest>(contents);
+            string contents = Encoding.UTF8.GetString(message.Body);
+            var request = JsonConvert.DeserializeObject<TRequest>(contents);
 
-                this.context.CorrelationId = executionContext.InvocationId;
-                message.UserProperties.TryGetValue("UserName", out object userName);
-                this.context.UserName = (string)userName;
-                message.UserProperties.TryGetValue("UserType", out object userType);
-                this.context.UserType = (string)userType;
+            this.context.CorrelationId = executionContext.InvocationId;
+            message.UserProperties.TryGetValue("UserName", out object userName);
+            this.context.UserName = (string)userName;
+            message.UserProperties.TryGetValue("AuthenticationType", out object authenticationType);
+            this.context.AuthenticationType = (string)authenticationType;
 
-                await mediator.Send(request);
+            await mediator.Send(request);
 
-                // if(resultMethod != null)
-                //     return resultMethod(response);
-
-                // return new OkObjectResult(response);
-            //}
-            // catch (Application.Common.Exceptions.ValidationException validationException)
-            // {
-            //     // var result = new
-            //     // {
-            //     //     message = "Validation failed.",
-            //     //     errors = validationException.Failures.Select(x => new
-            //     //     {
-            //     //         x.PropertyName,
-            //     //         x.ErrorMessage,
-            //     //         x.ErrorCode
-            //     //     })
-            //     // };
-
-
-            //     // var result = JsonConvert.SerializeObject(validationException.Failures);
-
-            //     // return new BadRequestObjectResult(result);
-            // }
-            // catch (Application.Common.Exceptions.NotFoundException)
-            // {
-                
-            // }
         }
     }
 }

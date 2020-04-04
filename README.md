@@ -3,4 +3,8 @@
 # CleanFunc
 Clean architecture with azure functions. \**Work In Progress\**
 
-The structures are based on clean architecture and the work completed in repository - https://github.com/jasontaylordev/NorthwindTraders
+See the clean architecture repositories by Jason Taylor below
+ - https://github.com/jasontaylordev/CleanArchitecture
+ - https://github.com/jasontaylordev/NorthwindTraders
+
+To run the function app, firstly run the setup.ps1 file to create azure dependencies.

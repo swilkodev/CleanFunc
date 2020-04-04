@@ -3,25 +3,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using CleanFunc.Application.Common.Interfaces;
+using CleanFunc.Application.Common.Models;
 using CleanFunc.Domain.Entities;
 using MediatR;
 
 namespace CleanFunc.Application.Issuers.Commands.CreateIssuer
 {
-    public class CreateIssuerCommand : IRequest<Guid>, IAuditHandler<CreateIssuerCommand>
+    public class CreateIssuerCommand : IRequest<Guid>, IAuditableRequest<CreateIssuerCommand>
     {
         public string Name {get;set;}
 
-        public Task<AuditDetail> HandleAsync(AuditContext<CreateIssuerCommand> context)
+        public Task<Common.Models.AuditEntry> CreateEntryAsync(CreateIssuerCommand request)
         {
-            return Task.FromResult(new AuditDetail
+            var auditEntry = new Common.Models.AuditEntry(name: nameof(CreateIssuerCommand), action: "Create")
             {
-                EntityType = "ISSUER",
-                EntityKey1 = context.Request.Name,
+                ActionTarget = new ActionTarget
+                {
+                    EntityType = nameof(Issuer),
+                    EntityKey = request.Name
+                },
                 CustomData = new {
                     SomeProperty = "Foo"
-                }
-            });
+                },
+            };
+            return Task.FromResult(auditEntry);
         }
 
         public class CreateIssuerCommandHandler : IRequestHandler<CreateIssuerCommand, Guid>
@@ -51,7 +56,7 @@ namespace CleanFunc.Application.Issuers.Commands.CreateIssuer
 
                 await issuerRepository.Add(entity);
 
-                // publish event
+                // publish application event
                 await mediator.Publish(new IssuerCreated { IssuerId = entity.Id }, cancellationToken);
 
                 return entity.Id;
