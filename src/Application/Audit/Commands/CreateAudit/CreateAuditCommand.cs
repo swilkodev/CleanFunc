@@ -17,11 +17,11 @@ namespace CleanFunc.Application.Audit.Commands.CreateAudit
         public Guid CorrelationId {get;set;}
         public DateTime DateOccuredUtc {get;set;}
         public string Reason {get;set;}
-        public string Outcome {get; internal set;}
+        public string Outcome {get; set;}
         public string EntityType {get;set;}
         public string EntityKey {get;set;}
         public object CustomData {get;set;}
-        public string ExecutingApplication {get; internal set;}
+        public string ExecutingApplication {get; set;}
 
         public CreateAuditCommand()
         {

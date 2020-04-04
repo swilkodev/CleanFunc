@@ -24,7 +24,7 @@ namespace CleanFunc.Infrastructure.Services
         public async Task AddAsync(Audit audit)
         {
             // create command
-            // at this point we will include some call context data
+            // at this point we will also include some call context data
             var cmd = new CreateAuditCommand
             {
                 Name = audit.Entry.Name,
@@ -33,7 +33,11 @@ namespace CleanFunc.Infrastructure.Services
                 AuthenticationType = callContext.AuthenticationType,
                 CorrelationId = callContext.CorrelationId,
                 DateOccuredUtc = audit.Entry.DateOccuredUtc,
+                Outcome = audit.Outcome.ToString(),
                 Reason = audit.Reason,
+                EntityType = audit.Entry.ActionTarget.EntityType,
+                EntityKey = audit.Entry.ActionTarget.EntityKey,
+                ExecutingApplication = audit.Entry.ExecutingApplication,
                 CustomData = audit.Entry.CustomData
             };
             // send audit command to service bus
