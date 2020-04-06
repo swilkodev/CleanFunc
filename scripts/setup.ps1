@@ -30,8 +30,8 @@ $jsonObject = @{
         AzureWebJobsStorage = "UseDevelopmentStorage=true"
         ServiceBusConnectionString = $connectionString
     }
-}
+
 $json = $jsonObject | ConvertTo-Json
-Set-Content -Path .\src\FunctionApp\local.settings.json -Value $json
+Set-Content -Path ..\src\FunctionApp\local.settings.json -Value $json
 
 
