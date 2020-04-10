@@ -23,15 +23,15 @@ steps:
 - script: dotnet test --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
   displayName: 'dotnet run tests with coverage'
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: custom
-#     custom: tool
-#     arguments: install --tool-path . dotnet-reportgenerator-globaltool
-#   displayName: Install ReportGenerator tool
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    custom: tool
+    arguments: install --tool-path . dotnet-reportgenerator-globaltool
+  displayName: Install ReportGenerator tool
 
-# - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
-#   displayName: Create reports
+- script: ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
+  displayName: Create reports
 
 # Publish the code coverage result (summary and web site)
 # The summary allows to view the coverage percentage in the summary tab
@@ -40,5 +40,4 @@ steps:
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+    summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
