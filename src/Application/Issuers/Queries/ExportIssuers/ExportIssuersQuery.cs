@@ -64,7 +64,7 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
                     FileName = "Issuers.csv"
                 };
                 
-                return await Task.FromResult(response);    
+                return response;    
             }
         }
     }
