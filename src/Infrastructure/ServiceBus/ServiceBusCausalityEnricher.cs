@@ -6,18 +6,18 @@ namespace CleanFunc.Infrastructure.ServiceBus
     // This enricher is used to enrich the service bus message with context information to correlate calls between 
     // azure functions and service bus. It is only required when azure service bus output bindings are not used because
     // normally the bindings would do this work.
-    public class AzureFunctionServiceBusCausalityEnricher : IMessageEnricher
+    public class ServiceBusCausalityEnricher : IMessageEnricher
     {
-        private readonly ICallContext context;
+        private readonly ICallContext callContext;
 
-        public AzureFunctionServiceBusCausalityEnricher(ICallContext context)
+        public ServiceBusCausalityEnricher(ICallContext context)
         {
-            this.context = context;
+            this.callContext = context;
         }
 
         public Task EnrichAsync(MessageContext context)
         {
-            context.UserProperties.Add("$AzureWebJobsParentId", this.context.CorrelationId);
+            context.UserProperties.Add("$AzureWebJobsParentId", this.callContext.CorrelationId);
             return Task.CompletedTask;
         }
     }

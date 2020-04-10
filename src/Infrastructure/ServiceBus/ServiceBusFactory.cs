@@ -10,12 +10,15 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
     public class ServiceBusFactory : IBusFactory
     {
-        private IConfiguration _configuration;
+        private IServiceBusConfiguration _configuration;
         private readonly IEnumerable<IMessageEnricher> _enrichers;
         private readonly ConcurrentDictionary<string, Lazy<IBusMessageSender>> _messageSenderCache = new ConcurrentDictionary<string, Lazy<IBusMessageSender>>();
 
-        public ServiceBusFactory(IConfiguration configuration, IEnumerable<IMessageEnricher> enrichers)
+        public ServiceBusFactory(IServiceBusConfiguration configuration, IEnumerable<IMessageEnricher> enrichers)
         {
+            Guard.Against.Null(configuration, nameof(configuration));
+            Guard.Against.Null(enrichers, nameof(enrichers));
+
             _configuration = configuration;
             _enrichers = enrichers;
         }
@@ -67,13 +70,8 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
         private string GetConnectionString(string suffix)
         {
-            // lookup specific connectionstring by suffix
-            var connectionString = _configuration.GetValue<string>($"ServiceBusConnectionString:{suffix.ToLowerInvariant()}");
-            if(connectionString == null)
-            {
-                connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-            }
-            return connectionString;
+            // lookup connectionstring by suffix. If its not found, use default connectionstring
+            return _configuration.OtherConnectionStrings.GetValueOrDefault(suffix.ToLowerInvariant(), _configuration.DefaultConnectionString);
         }
     }
 }
