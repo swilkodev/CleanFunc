@@ -16,7 +16,10 @@ namespace CleanFunc.Application.UnitTests.Common
     {
         public QueryTestFixture()
         {
-            Context = new IssuerRepository(); // ApplicationDbContextFactory.Create();
+            var dateTimeService = new Mock<IDateTime>();
+            dateTimeService.Setup(_ => _.Now).Returns(new DateTime(3000, 1, 1));
+            
+            Context = new IssuerRepository(dateTimeService.Object); // ApplicationDbContextFactory.Create();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {

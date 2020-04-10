@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections;
 using System.Text;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,7 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
         }
 
         [Fact]
-        public async Task ExportIssuers_ReturnsCorrectResponseAndData()
+        public async Task ExportIssuers_EnsureFileBuilderIsCalledAndCorrectResultIsReturned()
         {
             var logger = new Mock<ILogger<ExportIssuersQuery.ExportIssuersQueryHandler>>();
             var fileBuilder = new Mock<ICsvFileBuilder>();
@@ -49,6 +51,51 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
             result.ContentType.ShouldBe("text/csv");
             result.Content.ShouldBe(fileData);
             result.FileName.ShouldBe("Issuers.csv");
+        }
+
+        [Fact]
+        public async Task ExportIssuers_EnsureAllRecordsGivenToFileBuilderMatchDatabase()
+        {
+            IEnumerable<IssuerRecord> records = Enumerable.Empty<IssuerRecord>();
+            var logger = new Mock<ILogger<ExportIssuersQuery.ExportIssuersQueryHandler>>();
+            var fileBuilder = new Mock<ICsvFileBuilder>();
+            fileBuilder.Setup(_ => _.BuildFileAsync(It.IsAny<IEnumerable<IssuerRecord>>()))
+                        .Callback<IEnumerable<IssuerRecord>>(r => records = r);
+
+            var query = new ExportIssuersQuery();
+            
+            var sut = new ExportIssuersQuery.ExportIssuersQueryHandler(_context, _mapper, fileBuilder.Object, logger.Object);
+            // act
+            await sut.Handle(query, CancellationToken.None);
+
+            var databaseRecords = await _context.GetAll();
+            
+            records.ShouldNotBeEmpty();
+            records.Count().ShouldBe(databaseRecords.Count());
+
+        }
+
+        [Fact]
+        public async Task ExportIssuers_EnsureExactRecordsGivenToFileBuilderMatchesDatabase()
+        {
+            IEnumerable<IssuerRecord> records = Enumerable.Empty<IssuerRecord>();
+            var logger = new Mock<ILogger<ExportIssuersQuery.ExportIssuersQueryHandler>>();
+            var fileBuilder = new Mock<ICsvFileBuilder>();
+            fileBuilder.Setup(_ => _.BuildFileAsync(It.IsAny<IEnumerable<IssuerRecord>>()))
+                        .Callback<IEnumerable<IssuerRecord>>(r => records = r);
+
+            var query = new ExportIssuersQuery();
+            query.Id = new Guid("de891235-405e-4e72-912d-7bd51b4c92b7");
+            var sut = new ExportIssuersQuery.ExportIssuersQueryHandler(_context, _mapper, fileBuilder.Object, logger.Object);
+            // act
+            await sut.Handle(query, CancellationToken.None);
+
+            var databaseRecords = await _context.GetWhere(_ => _.Id == query.Id);
+            
+            records.ShouldNotBeEmpty();
+            records.Count().ShouldBe(databaseRecords.Count());
+            records.First().Name.ShouldBe(databaseRecords.First().Name);
+            records.First().CreatedDate.ShouldBe(databaseRecords.First().CreatedDate);
         }
     }
 }
