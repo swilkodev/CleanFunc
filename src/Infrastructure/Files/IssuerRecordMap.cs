@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CleanFunc.Application.Issuers.Models;
 
 namespace CleanFunc.Infrastructure.Files
 {
+    [ExcludeFromCodeCoverageAttribute]
     public class IssuerRecordMap : CsvHelper.Configuration.ClassMap<IssuerRecord>
     {
         public IssuerRecordMap()
