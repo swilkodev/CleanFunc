@@ -19,9 +19,6 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
         // No members
         public Guid? Id {get;set;} 
 
-        // Headers are injected by Azure Functions Runtime. Hmm!
-        public IDictionary<string, string> Headers {get;set;} 
-
         public class ExportIssuersQueryHandler : IRequestHandler<ExportIssuersQuery, ExportIssuersResponse>
         {
             private readonly IIssuerRepository _issuerRepository;
