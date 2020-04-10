@@ -3,7 +3,7 @@ using CleanFunc.Application.Issuers.Models;
 
 namespace CleanFunc.Infrastructure.Files
 {
-    internal class IssuerRecordMap : CsvHelper.Configuration.ClassMap<IssuerRecord>
+    public class IssuerRecordMap : CsvHelper.Configuration.ClassMap<IssuerRecord>
     {
         public IssuerRecordMap()
         {

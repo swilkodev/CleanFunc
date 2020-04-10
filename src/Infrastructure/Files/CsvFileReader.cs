@@ -10,11 +10,11 @@ namespace CleanFunc.Infrastructure.Files
 {
     public class CsvFileReader : ICsvFileReader
     {
-        private List<ClassMap> classMaps=new List<ClassMap>();
+        private IEnumerable<ClassMap> _classMaps;
 
-        public CsvFileReader()
+        public CsvFileReader(IEnumerable<ClassMap> classMaps)
         {
-            classMaps.Add(new IssuerRecordMap());
+            _classMaps = classMaps;
         }
 
         // NOTE: We are not returning AsyncEnumerable here due to problems with
@@ -28,7 +28,7 @@ namespace CleanFunc.Infrastructure.Files
             using(var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
             {
                 // register all class maps
-                foreach(CsvHelper.Configuration.ClassMap c in classMaps)
+                foreach(CsvHelper.Configuration.ClassMap c in _classMaps)
                 {
                     csvReader.Configuration.RegisterClassMap(c);   
                     // csvReader.Configuration.BadDataFound = (ctx) => 

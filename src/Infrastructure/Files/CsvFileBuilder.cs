@@ -1,3 +1,4 @@
+using System.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,16 +8,17 @@ using CleanFunc.Application.Common.Interfaces;
 using CleanFunc.Application.Issuers.Queries.ExportIssuers;
 using CsvHelper;
 using CsvHelper.Configuration;
+using System.Linq;
 
 namespace CleanFunc.Infrastructure.Files
 {
     public class CsvFileBuilder : ICsvFileBuilder
     {
-        private List<ClassMap> classMaps=new List<ClassMap>();
+        private IEnumerable<ClassMap> _classMaps;
 
-        public CsvFileBuilder()
+        public CsvFileBuilder(IEnumerable<ClassMap> classMaps)
         {
-            classMaps.Add(new IssuerRecordMap());
+            _classMaps = classMaps;
         }
 
         public async Task<byte[]> BuildFileAsync<TRecord>(System.Collections.Generic.IEnumerable<TRecord> records)
@@ -27,7 +29,7 @@ namespace CleanFunc.Infrastructure.Files
                 using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
                 // register all class maps
-                foreach(CsvHelper.Configuration.ClassMap c in classMaps)
+                foreach(CsvHelper.Configuration.ClassMap c in _classMaps)
                 {
                     csvWriter.Configuration.RegisterClassMap(c);    
                 }
