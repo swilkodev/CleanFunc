@@ -28,18 +28,14 @@ namespace CleanFunc.Application.UnitTests.Issuers.Queries.GetIssuer
             var query = new GetIssuerQuery();
             query.Id = new Guid("5f95d690-513a-497f-bba2-76bc286bf2af");
 
-            var handler = new GetIssuerQuery.GetIssuerQueryHandler(_context, _mapper);
+            var sut = new GetIssuerQuery.GetIssuerQueryHandler(_context, _mapper);
 
-            var result = await handler.Handle(query, CancellationToken.None);
+            var result = await sut.Handle(query, CancellationToken.None);
 
             result.ShouldBeOfType<GetIssuerResponse>();
             
             result.Issuer.ShouldNotBeNull();
-            // result.Lists.Count.ShouldBe(1);
-
-            // var list = result.Lists.First();
-
-            // list.Items.Count.ShouldBe(5);
+            result.Issuer.Name.ShouldBe("SAW Beer Pty Ltd");
         }
     }
 }
