@@ -37,19 +37,9 @@ namespace CleanFunc.Infrastructure.ServiceBus
             Message message = new Message(Encoding.UTF8.GetBytes(data));
             message.ContentType = "application/json";
 
-            var context= new MessageContext
-            {
-                // TODO Add further properties
-            };
-
             // run each of the enrichers 
             foreach(var enricher in _enrichers)
-                await enricher.EnrichAsync(context);
-            
-            // add back properties which were added to the ctx above
-            // Bit hacky needs more thought
-            foreach (var k in context.UserProperties.Keys)
-                message.UserProperties.Add(k, context.UserProperties[k]);
+                await enricher.EnrichAsync(message);
 
             await _messageSender.SendAsync(message);    
         }   

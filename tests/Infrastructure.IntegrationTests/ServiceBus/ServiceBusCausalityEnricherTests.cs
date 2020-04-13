@@ -5,6 +5,7 @@ using CleanFunc.Infrastructure.ServiceBus;
 using Moq;
 using Xunit;
 using Shouldly;
+using Microsoft.Azure.ServiceBus;
 
 namespace Infrastructure.IntegrationTests.ServiceBus
 {
@@ -17,15 +18,16 @@ namespace Infrastructure.IntegrationTests.ServiceBus
             // arrange
             var callContext = new Mock<ICallContext>();
             callContext.SetupGet(_ => _.CorrelationId).Returns(guid);
-            var msgCtx = new MessageContext();
+
+            Message message = new Message();
 
             var sut = new ServiceBusCausalityEnricher(callContext.Object);
             // act
-            sut.EnrichAsync(msgCtx);
+            sut.EnrichAsync(message);
 
             // assert
-            msgCtx.UserProperties.ShouldContainKey("$AzureWebJobsParentId");
-            msgCtx.UserProperties["$AzureWebJobsParentId"].ShouldBe(guid);
+            message.UserProperties.ShouldContainKey("$AzureWebJobsParentId");
+            message.UserProperties["$AzureWebJobsParentId"].ShouldBe(guid);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using CleanFunc.Application.Common.Interfaces;
+using Microsoft.Azure.ServiceBus;
 
 namespace CleanFunc.Infrastructure.ServiceBus
 {
@@ -15,9 +16,9 @@ namespace CleanFunc.Infrastructure.ServiceBus
             this.callContext = context;
         }
 
-        public Task EnrichAsync(MessageContext context)
+        public Task EnrichAsync(Message message)
         {
-            context.UserProperties.Add("$AzureWebJobsParentId", this.callContext.CorrelationId);
+            message.UserProperties.Add("$AzureWebJobsParentId", this.callContext.CorrelationId);
             return Task.CompletedTask;
         }
     }
