@@ -13,6 +13,7 @@ variables:
   buildConfiguration: 'Release'
   majorVersion: 1
   minorVersion: 0
+  disable.coverage.autogenerate: 'true'
 
 name: $(majorVersion).$(minorVersion).$(Rev:r)
 
