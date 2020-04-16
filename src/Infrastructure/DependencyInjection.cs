@@ -24,10 +24,10 @@ namespace CleanFunc.Infrastructure
             services.AddCsvFile(Assembly.GetExecutingAssembly());
 
             // note: the below dependencies use a scope context (per call scope)
-            //services.AddScoped<IServiceBusConfiguration, ServiceBusConfiguration>();
+            services.AddScoped<IServiceBusConfiguration, ServiceBusConfiguration>();
             services.AddScoped<ICallContext, MutableCallContext>();
             services.AddScoped<IBusFactory,ServiceBusFactory>();
-            //services.AddScoped<IMessageEnricher,ServiceBusCausalityEnricher>();
+            services.AddScoped<IMessageEnricher,ServiceBusCausalityEnricher>();
             return services;
         }
 
