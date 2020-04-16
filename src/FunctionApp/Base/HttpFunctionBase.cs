@@ -48,13 +48,49 @@ namespace CleanFunc.FunctionApp.Base
             }
             catch (Application.Common.Exceptions.ValidationException validationException)
             {
-                var result = JsonConvert.SerializeObject(validationException.Failures);
+                // NOTE: ValidationProblemDetails ctor(Dictionary<string, string>) is part of MvC.Core 2.2 so an explicit reference was added to pull in this class because Azure Functions uses v2.1
+                var details = new ValidationProblemDetails(validationException.Errors)
+                {
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+                };
 
-                return new BadRequestObjectResult(result);
+                return new BadRequestObjectResult(details);
             }
-            catch (Application.Common.Exceptions.NotFoundException)
+            catch (Application.Common.Exceptions.NotFoundException notFoundException)
             {
-                return new NotFoundResult();
+                var details = new ProblemDetails()
+                {
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+                    Title = "The specified resource was not found.",
+                    Detail = notFoundException.Message
+                };
+
+                return new NotFoundObjectResult(details);
+            }
+            catch (Application.Common.Exceptions.DuplicateItemException duplicateException)
+            {
+                var details = new ProblemDetails()
+                {
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.8",
+                    Title = "The request could not be completed due to a conflict.",
+                    Detail = duplicateException.Message
+                };
+
+                return new ConflictObjectResult(details);
+            }
+            catch (Exception)
+            {
+                var details = new ProblemDetails
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Title = "An error occurred while processing your request.",
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                };
+
+                return new ObjectResult(details)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError
+                };
             }
         }
     }
