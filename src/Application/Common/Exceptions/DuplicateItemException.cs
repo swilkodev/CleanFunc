@@ -6,8 +6,8 @@ namespace CleanFunc.Application.Common.Exceptions
 {
     public class DuplicateItemException : Exception
     {
-        public DuplicateItemException(string name, IEnumerable<string> duplicates)
-            : base($"Duplicate items exist with the same {name} ({string.Join(',', duplicates.Select(_ => _))}).")
+        public DuplicateItemException(string key, IEnumerable<string> duplicates)
+            : base($"Duplicate items exist with the same {key} ({string.Join(',', duplicates.Select(_ => _))}).")
         {
         }
 
