@@ -42,3 +42,4 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)/coverlet/reports
