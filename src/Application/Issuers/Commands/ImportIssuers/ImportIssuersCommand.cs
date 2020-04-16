@@ -10,6 +10,7 @@ using MediatR;
 using System;
 using CleanFunc.Application.Issuers.Models;
 using Ardalis.GuardClauses;
+using CleanFunc.Application.Common.Exceptions;
 
 namespace CleanFunc.Application.Issuers.Commands.ImportIssuers
 {
@@ -36,21 +37,28 @@ namespace CleanFunc.Application.Issuers.Commands.ImportIssuers
 
             public async Task<long> Handle(ImportIssuersCommand request, CancellationToken cancellationToken)
             {
-                var issuers=new List<Issuer>();
+                var records = await this.reader.ReadAsync<IssuerRecord>(request.Data);
 
-                foreach(var record in await this.reader.ReadAsync<IssuerRecord>(request.Data))
+                // Check for duplicates
+                var duplicates = records.GroupBy(record => record.Name)
+                                        .Where(group => group.Count() > 1)
+                                        .Select(group => group.Key);
+                if(duplicates.Any())
                 {
-                    issuers.Add(new Issuer
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = record.Name,
-                        CreatedDate = record.CreatedDate,
-                    });
+                    throw new DuplicateItemException("Name", duplicates);
                 }
 
-                await repository.Add(issuers);
+                // Map records to entity and add to database repository
+                await repository.Add(
+                                    records.Select(
+                                            record => new Issuer{
+                                                Id = Guid.NewGuid(),
+                                                Name = record.Name,
+                                                CreatedDate = record.CreatedDate,
+                                            })
+                );
 
-                return issuers.LongCount();
+                return records.LongCount();
             }
         }
     }
