@@ -21,7 +21,7 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --logger "trx;LogFileName=TestResults.trx" --results-directory "$(Build.SourcesDirectory)/src/TestResults"
+- script: dotnet test --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --logger trx --results-directory "$(Build.SourcesDirectory)/src/TestResults"
   displayName: 'dotnet run tests with coverage'
 
 - task: DotNetCoreCLI@2
