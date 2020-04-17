@@ -47,5 +47,5 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
-    testResultsFiles: '$(Build.SourcesDirectory)/src/TestResults/TestResults.trx'
+    testResultsFiles: '$(Build.SourcesDirectory)/src/TestResults/*.trx'
     failTaskOnFailedTests: true
