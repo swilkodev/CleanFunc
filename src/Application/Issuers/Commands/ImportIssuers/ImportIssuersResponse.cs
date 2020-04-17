@@ -1,4 +1,4 @@
-namespace Application.Issuers.Commands.ImportIssuers
+namespace CleanFunc.Application.Issuers.Commands.ImportIssuers
 {
     public class ImportIssuersResponse
     {
