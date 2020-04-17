@@ -15,94 +15,101 @@ namespace Application.UnitTests.Common.Behaviors
     public class AuditBehaviorTests
     {
         private const string ErrorMessage = "An error occured";
-        private Mock<IAuditor> auditor;
-        private RequestHandlerDelegate<Guid> successHandler;
-        private RequestHandlerDelegate<Guid> failhandler;
+        private Mock<IAuditor> mockAuditor;
+        private Mock<RequestHandlerDelegate<Guid>> mockSuccessHandler;
+        private Mock<RequestHandlerDelegate<Guid>> mockFailHandler;
         private static readonly AuditEntry auditEntry = new AuditEntry("Some", "Create");
 
         public AuditBehaviorTests()
         {
-            auditor = new Mock<IAuditor>();
+            mockAuditor = new Mock<IAuditor>();
 
-            successHandler = () => Task.FromResult(Guid.NewGuid());
+            mockSuccessHandler = new Mock<RequestHandlerDelegate<Guid>>();
+            mockSuccessHandler.Setup(_ => _()).ReturnsAsync(Guid.NewGuid());
 
-            failhandler = () => throw new Exception(ErrorMessage);
+            mockFailHandler = new Mock<RequestHandlerDelegate<Guid>>();
+            mockFailHandler.Setup(_ => _()).ThrowsAsync(new ArgumentException(ErrorMessage));
         }
 
         [Fact]
-        public async Task ShouldCreateAuditWithSuccessOutcome()
+        public async Task WhenAuditableRequest_ShouldCreateAuditWithSuccessOutcome()
         {
-            var sut = new RequestAuditBehavior<SomeCommand, Guid>(auditor.Object);
+            var sut = new RequestAuditBehavior<SomeAuditableCommand, Guid>(mockAuditor.Object);
             
             var result = await sut.Handle(
-                                            new SomeCommand(), 
+                                            new SomeAuditableCommand(), 
                                             new CancellationToken(),
-                                            successHandler);
+                                            mockSuccessHandler.Object);
 
-            auditor.Verify(x => x.AddAsync(It.Is<Audit>(a => a.Outcome == AuditOutcome.Success
+            mockSuccessHandler.Verify(_ => _(), Times.Once);
+            mockAuditor.Verify(x => x.AddAsync(It.Is<Audit>(a => a.Outcome == AuditOutcome.Success
                                                                 && a.Entry == auditEntry)), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldCreateAuditWithFailureOutcome()
+        public async Task WhenAuditableRequestAndErrorOccurs_ShouldCreateAuditWithFailureOutcome()
         {            
-            var sut = new RequestAuditBehavior<SomeCommand, Guid>(auditor.Object);
+            var sut = new RequestAuditBehavior<SomeAuditableCommand, Guid>(mockAuditor.Object);
             
             var exception = await Record.ExceptionAsync(() => 
                                              sut.Handle(
-                                                        new SomeCommand(), 
+                                                        new SomeAuditableCommand(), 
                                                         new CancellationToken(),
-                                                        failhandler)
+                                                        mockFailHandler.Object)
             );
 
             exception.ShouldNotBeNull();
             exception.Message.ShouldBe(ErrorMessage);
 
-            auditor.Verify(x => x.AddAsync(It.Is<Audit>(a => a.Outcome == AuditOutcome.Failure 
+            mockAuditor.Verify(x => x.AddAsync(It.Is<Audit>(a => a.Outcome == AuditOutcome.Failure 
                                                                 && a.Reason == ErrorMessage
                                                                 && a.Entry == auditEntry)), Times.Once);
+
+            mockFailHandler.Verify(_ => _(), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldNotCreateAnAudit_AsDoesNotImplementAuditableRequest_ShouldNotThrowException()
+        public async Task WhenNotAnAuditableRequestAndNoErrorOccured_ShouldNotCreateAudit()
         {
-            var sut = new RequestAuditBehavior<SomeQuery, Guid>(auditor.Object);
+            var sut = new RequestAuditBehavior<SomeQuery, Guid>(mockAuditor.Object);
             
             var exception = await Record.ExceptionAsync(() => 
                                              sut.Handle(
                                                         new SomeQuery() , 
                                                         new CancellationToken(),
-                                                        successHandler)
+                                                        mockSuccessHandler.Object)
             );
 
             exception.ShouldBeNull();
-            auditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
+            mockAuditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
+            mockSuccessHandler.Verify(_ => _(), Times.Once);
         }
 
 
         [Fact]
-        public async Task ShouldNotCreateAnAudit_AsDoesNotImplementAuditableRequest_MustThrowException()
+        public async Task WhenNotAnAuditableRequestAndErrorOccureds_ShouldReturnErrorButNotCreateAudit()
         {
-            var sut = new RequestAuditBehavior<SomeQuery, Guid>(auditor.Object);
+            var sut = new RequestAuditBehavior<SomeQuery, Guid>(mockAuditor.Object);
             
             var exception = await Record.ExceptionAsync(() => 
                                              sut.Handle(
                                                         new SomeQuery() , 
                                                         new CancellationToken(),
-                                                        failhandler)
+                                                        mockFailHandler.Object)
             );
 
             exception.ShouldNotBeNull();
             exception.Message.ShouldBe(ErrorMessage);
 
-            auditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
+            mockAuditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
+            mockFailHandler.Verify(_ => _(), Times.Once);
         }
 
         private class SomeQuery : IRequest<Guid> {}
 
-        private class SomeCommand : IRequest<Guid>, IAuditableRequest<SomeCommand>
+        private class SomeAuditableCommand : IRequest<Guid>, IAuditableRequest<SomeAuditableCommand>
         {
-            public Task<AuditEntry> CreateEntryAsync(SomeCommand request)
+            public Task<AuditEntry> CreateEntryAsync(SomeAuditableCommand request)
             {
                 return Task.FromResult(auditEntry);
             }
