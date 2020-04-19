@@ -7,7 +7,6 @@ using System;
 
 namespace CleanFunc.Infrastructure.ServiceBus
 {
-
     public class AzureServiceBusEndpointFactory : IBusEndpointFactory
     {
         private IServiceBusConfiguration _configuration;
@@ -36,13 +35,13 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
             string cacheKey = $"{queueOrTopicName}-{connectionString}";
 
-            // Cache sender so we do not create endless senders and run out of available connections
+            // Cache endpoint so we do not run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
-            var bus = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(()
+            var endpoint = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(()
                                                                         => new AzureServiceBusEndpoint(_enrichers,
                                                                                 connectionString, 
                                                                                 queueOrTopicName)));
-            return bus.Value;
+            return endpoint.Value;
         }
 
         /// <summary>
@@ -59,13 +58,13 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
             string cacheKey = $"{entityPath}-{connectionString}";
 
-            // Cache sender so we do not create endless senders and run out of available connections
+            // Cache endpoint so we do not run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
-            var bus = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(() 
+            var endpoint = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(() 
                                                                             => new AzureServiceBusEndpoint(_enrichers, 
                                                                                 connectionString, 
                                                                                 entityPath)));
-            return bus.Value;
+            return endpoint.Value;
         }
 
         private string GetConnectionString(string suffix)
