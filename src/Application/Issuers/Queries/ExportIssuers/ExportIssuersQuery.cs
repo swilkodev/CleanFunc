@@ -23,7 +23,7 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
         {
             private readonly IIssuerRepository _issuerRepository;
             private readonly IMapper _mapper;
-            private readonly ICsvFileBuilder _fileBuilder;
+            private readonly ICsvFileBuilder _csvFileBuilder;
             private readonly ILogger<ExportIssuersQueryHandler> _logger;
 
             public ExportIssuersQueryHandler(IIssuerRepository issuerRepository, IMapper mapper, ICsvFileBuilder fileBuilder, ILogger<ExportIssuersQueryHandler> logger)
@@ -35,7 +35,7 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
 
                 _issuerRepository = issuerRepository; 
                 _mapper = mapper; 
-                _fileBuilder = fileBuilder; 
+                _csvFileBuilder = fileBuilder; 
                 _logger = logger;
             }
 
@@ -56,7 +56,7 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
                 
                 var response = new ExportIssuersResponse()
                 {
-                    Content = await _fileBuilder.BuildFileAsync(records),
+                    Content = await _csvFileBuilder.BuildFileAsync(records),
                     ContentType = "text/csv",
                     FileName = "Issuers.csv"
                 };

@@ -6,6 +6,6 @@ namespace CleanFunc.Infrastructure.ServiceBus
 {
     public interface IMessageEnricher
     {
-        Task EnrichAsync(Message context);
+        Task EnrichAsync(Message message);
     }
 }

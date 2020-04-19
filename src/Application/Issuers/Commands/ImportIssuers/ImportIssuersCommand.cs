@@ -20,7 +20,7 @@ namespace CleanFunc.Application.Issuers.Commands.ImportIssuers
 
         public class ImportIssuersCommandHandler : IRequestHandler<ImportIssuersCommand, long>
         {
-            private readonly ICsvFileReader reader;
+            private readonly ICsvFileReader csvFileReader;
             private readonly IIssuerRepository repository;
             private readonly IMapper mapper;
 
@@ -30,14 +30,14 @@ namespace CleanFunc.Application.Issuers.Commands.ImportIssuers
                 Guard.Against.Null(repository, nameof(repository));
                 Guard.Against.Null(mapper, nameof(mapper));
 
-                this.reader = reader;
+                this.csvFileReader = reader;
                 this.repository = repository;
                 this.mapper = mapper;
             }
 
             public async Task<long> Handle(ImportIssuersCommand request, CancellationToken cancellationToken)
             {
-                var records = await this.reader.ReadAsync<IssuerRecord>(request.Data);
+                var records = await this.csvFileReader.ReadAsync<IssuerRecord>(request.Data);
 
                 // Check for duplicates
                 var duplicates = records.GroupBy(record => record.Name)

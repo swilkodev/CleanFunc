@@ -33,7 +33,7 @@ namespace CleanFunc.Infrastructure
 
         private static IServiceCollection AddCsvFile(this IServiceCollection services, Assembly assembly)
         {
-            // Register all class mapps in the assembly
+            // Register all class maps in the assembly
             var csvClassMap = typeof(CsvHelper.Configuration.ClassMap);
 
             var classMapTypes = assembly

@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using CleanFunc.Infrastructure.Files;
 using Xunit;
 using CsvHelper.Configuration;
 using FluentAssertions;
-using System.Globalization;
 
 namespace Infrastructure.IntegrationTests.Files
 {
@@ -45,9 +43,9 @@ namespace Infrastructure.IntegrationTests.Files
             var line2 = sr.ReadLine();
             var line3 = sr.ReadLine();
 
-            line1.Should().Contain("SomeField,AnotherField,Done");
-            line2.Should().Contain("TEST,TEST2,Yes");
-            line3.Should().Contain("TEST3,TEST4,No");
+            line1.Should().Be("SomeField,AnotherField,Done");
+            line2.Should().Be("TEST,TEST2,Yes");
+            line3.Should().Be("TEST3,TEST4,No");
         }
     }
 }
