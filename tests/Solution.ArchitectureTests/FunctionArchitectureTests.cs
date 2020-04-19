@@ -12,7 +12,7 @@ namespace Solution.ArchitectureTests
         private static Assembly FunctionAppAssembly => typeof(CleanFunc.FunctionApp.Startup).Assembly;
         
         [Fact]
-        public void FunctionsClass_MustHaveNameEndingInFunctions()
+        public void FunctionApp_MustInheritFromBaseClass_And_HaveNameEndingInFunctions()
         {
             var result = Types.InAssembly(FunctionAppAssembly)
                 .That()
@@ -20,27 +20,29 @@ namespace Solution.ArchitectureTests
                 .And().AreClasses()
                 .And().AreNotAbstract()
                 .And().Inherit(typeof(HttpFunctionBase))
+                .Or().Inherit(typeof(ServiceBusFunctionBase))
                 .Should().HaveNameEndingWith("Functions")
                 .GetResult();
             
             Assert.True(result.IsSuccessful, GetErrorMessage(result));
         }
         
-        // [Fact]
-        // public void Controllers_MustNotDependOnInfrastructure()
-        // {
-        //     var result = Types.InAssembly(FunctionAppAssembly)
-        //         .That()
-        //         .ResideInNamespace("CleanFunc.FunctionApp")
-        //         .ShouldNot()
-        //         .HaveDependencyOn("CleanFunc.Infrastructure")
-        //         .GetResult();
+        [Fact]
+        public void FunctionApp_TypesOtherThanStartup_MustNotDependOnInfrastructure()
+        {
+            var result = Types.InAssembly(FunctionAppAssembly)
+                .That()
+                .ResideInNamespace("CleanFunc.FunctionApp")
+                .And().DoNotHaveName("Startup")
+                .ShouldNot()
+                .HaveDependencyOn("CleanFunc.Infrastructure")
+                .GetResult();
             
-        //     Assert.True(result.IsSuccessful, GetErrorMessage(result));
-        // }
+            Assert.True(result.IsSuccessful, GetErrorMessage(result));
+        }
         
         [Fact]
-        public void Functions_MustNotDependOnDomain()
+        public void FunctionApp_MustNotDependOnDomain()
         {
             var result = Types.InAssembly(FunctionAppAssembly)
                 .That()
