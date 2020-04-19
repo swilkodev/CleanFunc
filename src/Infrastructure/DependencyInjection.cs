@@ -26,7 +26,7 @@ namespace CleanFunc.Infrastructure
             // note: the below dependencies use a scope context (per call scope)
             services.AddScoped<IServiceBusConfiguration, ServiceBusConfiguration>();
             services.AddScoped<ICallContext, MutableCallContext>();
-            services.AddScoped<IBusFactory,AzureServiceBusFactory>();
+            services.AddScoped<IBusEndpointFactory,AzureServiceBusEndpointFactory>();
             services.AddScoped<IMessageEnricher,AzureServiceBusCausalityEnricher>();
             return services;
         }

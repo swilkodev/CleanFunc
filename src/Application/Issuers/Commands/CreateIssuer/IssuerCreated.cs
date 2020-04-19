@@ -22,13 +22,13 @@ namespace CleanFunc.Application.Issuers.Commands.CreateIssuer
             private readonly ILogger<IssuerCreatedHandler> logger;
             private readonly IEmailService emailService;
             private readonly IMapper mapper;
-            private readonly IBusFactory busFactory;
+            private readonly IBusEndpointFactory busFactory;
             private readonly IDateTime dateTime;
 
             public IssuerCreatedHandler(ILogger<IssuerCreatedHandler> logger,
                                             IEmailService emailService, 
                                             IMapper mapper,
-                                            IBusFactory busFactory,
+                                            IBusEndpointFactory busFactory,
                                             IDateTime dateTime)
             {
                 Guard.Against.Null(logger, nameof(logger));

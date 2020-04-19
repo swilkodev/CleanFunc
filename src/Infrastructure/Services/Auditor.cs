@@ -9,9 +9,9 @@ namespace CleanFunc.Infrastructure.Services
     public class Auditor : IAuditor
     {
         private readonly ICallContext callContext;
-        private readonly IBus bus;
+        private readonly IBusEndpoint bus;
 
-        public Auditor(ICallContext callContext, IBusFactory busFactory)
+        public Auditor(ICallContext callContext, IBusEndpointFactory busFactory)
         {
             Guard.Against.Null(callContext, nameof(callContext));
             Guard.Against.Null(busFactory, nameof(busFactory));

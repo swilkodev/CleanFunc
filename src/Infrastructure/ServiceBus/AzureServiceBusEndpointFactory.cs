@@ -8,13 +8,13 @@ using System;
 namespace CleanFunc.Infrastructure.ServiceBus
 {
 
-    public class AzureServiceBusFactory : IBusFactory
+    public class AzureServiceBusEndpointFactory : IBusEndpointFactory
     {
         private IServiceBusConfiguration _configuration;
         private readonly IEnumerable<IMessageEnricher> _enrichers;
-        private readonly ConcurrentDictionary<string, Lazy<IBus>> _messageSenderCache = new ConcurrentDictionary<string, Lazy<IBus>>();
+        private readonly ConcurrentDictionary<string, Lazy<IBusEndpoint>> _endpointCache = new ConcurrentDictionary<string, Lazy<IBusEndpoint>>();
 
-        public AzureServiceBusFactory(IServiceBusConfiguration configuration, IEnumerable<IMessageEnricher> enrichers)
+        public AzureServiceBusEndpointFactory(IServiceBusConfiguration configuration, IEnumerable<IMessageEnricher> enrichers)
         {
             Guard.Against.Null(configuration, nameof(configuration));
             Guard.Against.Null(enrichers, nameof(enrichers));
@@ -28,7 +28,7 @@ namespace CleanFunc.Infrastructure.ServiceBus
         /// </summary>
         /// <param name="queueOrTopicName"></param>
         /// <returns></returns>
-        public IBus Create(string queueOrTopicName)
+        public IBusEndpoint Create(string queueOrTopicName)
         {
             Guard.Against.NullOrEmpty(queueOrTopicName, nameof(queueOrTopicName));
 
@@ -38,11 +38,11 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
             // Cache sender so we do not create endless senders and run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
-            var sender = _messageSenderCache.GetOrAdd(cacheKey, new Lazy<IBus>(()
-                                                                        => new AzureServiceBus(_enrichers,
+            var bus = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(()
+                                                                        => new AzureServiceBusEndpoint(_enrichers,
                                                                                 connectionString, 
                                                                                 queueOrTopicName)));
-            return sender.Value;
+            return bus.Value;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace CleanFunc.Infrastructure.ServiceBus
         /// <param name="entityType"></param>
         /// <typeparam name="TMessage"></typeparam>
         /// <returns></returns>
-        public IBus Create<TPayload>() where TPayload: class
+        public IBusEndpoint Create<TPayload>() where TPayload: class
         {
             var connectionString = GetConnectionString(typeof(TPayload).Name);
 
@@ -61,11 +61,11 @@ namespace CleanFunc.Infrastructure.ServiceBus
 
             // Cache sender so we do not create endless senders and run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
-            var sender = _messageSenderCache.GetOrAdd(cacheKey, new Lazy<IBus>(() 
-                                                                            => new AzureServiceBus(_enrichers, 
+            var bus = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(() 
+                                                                            => new AzureServiceBusEndpoint(_enrichers, 
                                                                                 connectionString, 
                                                                                 entityPath)));
-            return sender.Value;
+            return bus.Value;
         }
 
         private string GetConnectionString(string suffix)

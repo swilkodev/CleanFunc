@@ -16,8 +16,8 @@ namespace Infrastructure.IntegrationTests.Services
         {
             // arrange
             var callContext = new Mock<ICallContext>();
-            var factory = new Mock<IBusFactory>();
-            var sender = new Mock<IBus>();
+            var factory = new Mock<IBusEndpointFactory>();
+            var sender = new Mock<IBusEndpoint>();
             factory.Setup(x => x.Create<AuditMessage>()).Returns(sender.Object);
 
             var auditor = new Auditor(callContext.Object, factory.Object);

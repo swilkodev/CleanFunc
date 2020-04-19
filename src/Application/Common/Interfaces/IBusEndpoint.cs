@@ -2,8 +2,12 @@
 
 namespace CleanFunc.Application.Common.Interfaces
 {
-    public interface IBus 
+    public interface IBusEndpoint 
     {
+        /// <summary>
+        /// Send command
+        /// </summary>
+        /// <typeparam name="TPayload"></typeparam>
         Task SendAsync<TPayload>(TPayload payload) where TPayload: class;
     }
 }
