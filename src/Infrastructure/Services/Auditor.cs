@@ -1,16 +1,15 @@
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using CleanFunc.Application.Common.Interfaces;
-using CleanFunc.Application.Audit.Commands.CreateAudit;
-using IBusMessageSender = CleanFunc.Application.Common.Interfaces.IBusMessageSender;
 using CleanFunc.Application.Common.Models;
+using CleanFunc.Application.Audit.Messages;
 
 namespace CleanFunc.Infrastructure.Services
 {
     public class Auditor : IAuditor
     {
         private readonly ICallContext callContext;
-        private readonly IBusMessageSender messageSender;
+        private readonly IBus bus;
 
         public Auditor(ICallContext callContext, IBusFactory busFactory)
         {
@@ -18,14 +17,15 @@ namespace CleanFunc.Infrastructure.Services
             Guard.Against.Null(busFactory, nameof(busFactory));
 
             this.callContext = callContext;
-            this.messageSender = busFactory.Create<CreateAuditCommand>();
+            this.bus = busFactory.Create<AuditMessage>();
         }
 
         public async Task AddAsync(Audit audit)
         {
-            // create command
+            // create audit integration message
+            
             // at this point we will also include some call context data
-            var cmd = new CreateAuditCommand
+            var cmd = new AuditMessage
             {
                 Name = audit.Entry.Name,
                 Action = audit.Entry.Action,
@@ -40,8 +40,9 @@ namespace CleanFunc.Infrastructure.Services
                 ExecutingApplication = audit.Entry.ExecutingApplication,
                 CustomData = audit.Entry.CustomData
             };
-            // send audit command to service bus
-            await this.messageSender.SendAsync(cmd);
+
+            // send message command to integration bus
+            await this.bus.SendAsync(cmd);
         }
     }
 

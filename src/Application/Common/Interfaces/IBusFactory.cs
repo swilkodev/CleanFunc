@@ -2,7 +2,7 @@
 {
     public interface IBusFactory
     {
-        IBusMessageSender Create(string queueOrTopicName);
-        IBusMessageSender Create<TPayload>() where TPayload: class;
+        IBus Create(string queueOrTopicName);
+        IBus Create<TPayload>() where TPayload: class;
     }
 }

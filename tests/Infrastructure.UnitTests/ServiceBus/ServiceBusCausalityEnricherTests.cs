@@ -21,7 +21,7 @@ namespace Infrastructure.IntegrationTests.ServiceBus
 
             Message message = new Message();
 
-            var sut = new ServiceBusCausalityEnricher(callContext.Object);
+            var sut = new AzureServiceBusCausalityEnricher(callContext.Object);
             // act
             sut.EnrichAsync(message);
 

@@ -20,7 +20,7 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
 
-                var sut = new ServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var sut = new AzureServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
 
                 // act
                 var sender = sut.Create<Foo>();
@@ -38,7 +38,7 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
 
-                var sut = new ServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var sut = new AzureServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
 
                 // act
                 var sender = sut.Create<Foo>();
@@ -56,7 +56,7 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
 
-                var sut = new ServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var sut = new AzureServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
 
                 // act
                 var sender = sut.Create("MyQueue");
@@ -74,7 +74,7 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
                 
-                var sut = new ServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var sut = new AzureServiceBusFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
 
                 // act
                 var sender = sut.Create("MyQueue");

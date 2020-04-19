@@ -2,7 +2,7 @@
 
 namespace CleanFunc.Application.Common.Interfaces
 {
-    public interface IBusMessageSender 
+    public interface IBus 
     {
         Task SendAsync<TPayload>(TPayload payload) where TPayload: class;
     }

@@ -5,6 +5,7 @@ using CleanFunc.Infrastructure.Services;
 using Moq;
 using Xunit;
 using CleanFunc.Application.Common.Models;
+using CleanFunc.Application.Audit.Messages;
 
 namespace Infrastructure.IntegrationTests.Services
 {
@@ -16,11 +17,11 @@ namespace Infrastructure.IntegrationTests.Services
             // arrange
             var callContext = new Mock<ICallContext>();
             var factory = new Mock<IBusFactory>();
-            var sender = new Mock<IBusMessageSender>();
-            factory.Setup(x => x.Create<CreateAuditCommand>()).Returns(sender.Object);
+            var sender = new Mock<IBus>();
+            factory.Setup(x => x.Create<AuditMessage>()).Returns(sender.Object);
 
             var auditor = new Auditor(callContext.Object, factory.Object);
-            var auditEntry = new AuditEntry("CustomerCreate", action: "Modify")
+            var auditEntry = new AuditEntry("Issuer", action: "Modify")
             {
                 ActionTarget = new ActionTarget
                 {
@@ -32,7 +33,7 @@ namespace Infrastructure.IntegrationTests.Services
             await auditor.AddAsync(new Audit(AuditOutcome.Success, auditEntry));
 
             // assert
-            sender.Verify(x => x.SendAsync<CreateAuditCommand>(It.IsAny<CreateAuditCommand>()), Times.Once);
+            sender.Verify(x => x.SendAsync<AuditMessage>(It.IsAny<AuditMessage>()), Times.Once);
         }
     }
 }

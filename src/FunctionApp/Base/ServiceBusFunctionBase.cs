@@ -20,20 +20,14 @@ namespace CleanFunc.FunctionApp.Base
         }
 
         protected async Task ExecuteAsync<TRequest>(ExecutionContext executionContext, 
-                                                                    Message message) 
+                                                                    TRequest request) 
             where TRequest : IRequest
         {
-            string contents = Encoding.UTF8.GetString(message.Body);
-            var request = JsonConvert.DeserializeObject<TRequest>(contents);
 
             this.context.CorrelationId = executionContext.InvocationId;
-            message.UserProperties.TryGetValue("UserName", out object userName);
-            this.context.UserName = (string)userName;
-            message.UserProperties.TryGetValue("AuthenticationType", out object authenticationType);
-            this.context.AuthenticationType = (string)authenticationType;
-
+            this.context.FunctionName = executionContext.FunctionName;
+            
             await mediator.Send(request);
-
         }
     }
 }

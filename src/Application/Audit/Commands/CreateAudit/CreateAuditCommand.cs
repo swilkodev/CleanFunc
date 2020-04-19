@@ -1,14 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
+using CleanFunc.Application.Audit.Messages;
+using CleanFunc.Application.Common.Mappings;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CleanFunc.Application.Audit.Commands.CreateAudit
 {
-    public class CreateAuditCommand : IRequest
+    public class CreateAuditCommand : IRequest, IMapFrom<AuditMessage>
     {
         public string Name {get;set;}
         public string Action {get;set;}

@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 
 namespace CleanFunc.Infrastructure.ServiceBus
 {
-    internal class ServiceBusMessageSender : IBusMessageSender, IAsyncDisposable
+    internal class AzureServiceBus : IBus, IAsyncDisposable
     {
         private readonly MessageSender _messageSender;
         private readonly IEnumerable<IMessageEnricher> _enrichers;
 
-        public ServiceBusMessageSender(IEnumerable<IMessageEnricher> enrichers, string connectionString, string queueOrTopicName)
+        public AzureServiceBus(IEnumerable<IMessageEnricher> enrichers, string connectionString, string queueOrTopicName)
         {
             Guard.Against.Null(enrichers, nameof(enrichers));
             Guard.Against.NullOrEmpty(connectionString, nameof(connectionString));

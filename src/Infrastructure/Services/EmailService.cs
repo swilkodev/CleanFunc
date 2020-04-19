@@ -20,7 +20,9 @@ namespace CleanFunc.Infrastructure.Services
 
             logger.LogCritical("Sending email");
             
-            // Likely use something like SendGrid here
+            // Likely use something like SendGrid here.
+
+            // Consider sending the email message to a queue so that retries can be handled.
 
             return Task.CompletedTask;
         }

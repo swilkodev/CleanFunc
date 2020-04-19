@@ -19,7 +19,7 @@ if($null -eq $rg)
     throw "You must provide a resource group."
 }
 Write-Host "Creating audit queue"
-az servicebus queue create --resource-group $rg --namespace-name $name --name cleanfunc.application.audit.commands.createaudit.createauditcommand
+az servicebus queue create --resource-group $rg --namespace-name $name --name cleanfunc.application.audit.messages.auditmessage
 Write-Host "Generate local.settings.json file"
 
 $connectionString=az servicebus namespace authorization-rule keys list --resource-group $rg --namespace-name $name --name RootManageSharedAccessKey --query primaryConnectionString --output tsv
