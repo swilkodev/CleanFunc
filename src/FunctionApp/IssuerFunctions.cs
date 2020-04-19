@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,12 +6,8 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using MediatR;
 using CleanFunc.Application.Issuers.Queries.GetIssuer;
-using System.Linq;
-using Microsoft.Azure.WebJobs.Host;
-using System.Threading;
 using CleanFunc.Application.Issuers.Queries.ExportIssuers;
 using CleanFunc.Application.Issuers.Commands.CreateIssuer;
 using CleanFunc.Application.Common.Interfaces;
