@@ -3,6 +3,7 @@ using CleanFunc.Infrastructure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
+using FluentAssertions;
 
 namespace Infrastructure.IntegrationTests.Services
 {
@@ -12,7 +13,7 @@ namespace Infrastructure.IntegrationTests.Services
         
 
         [Fact]
-        public void Create_GivenExistingPayload_ShouldReturnSameSenderInstance()
+        public void WhenGivenExistingPayload_ShouldReturnSameSenderInstance()
         {
                 // arrange
                 var configuration = new Mock<IServiceBusConfiguration>();
@@ -26,11 +27,11 @@ namespace Infrastructure.IntegrationTests.Services
                 var sender2 = sut.Create<Foo>();
 
                 // assert
-                Assert.Same(sender, sender2);
+                sender.Should().BeSameAs(sender2);
         }
 
         [Fact]
-        public void Create_GivenDifferentPayload_ShouldReturnDifferentSenderInstance()
+        public void WhenGivenDifferentPayload_ShouldReturnDifferentSenderInstance()
         {
                 // arrange
                 var configuration = new Mock<IServiceBusConfiguration>();
@@ -44,11 +45,11 @@ namespace Infrastructure.IntegrationTests.Services
                 var sender2 = sut.Create<AnotherFoo>();
 
                 // assert
-                Assert.NotSame(sender, sender2);
+                sender.Should().NotBeSameAs(sender2);
         }
 
         [Fact]
-        public void Create_GivenSameQueue_ShouldReturnSameSenderInstance()
+        public void WhenGivenSameQueue_ShouldReturnSameSenderInstance()
         {
                 // arrange
                 var configuration = new Mock<IServiceBusConfiguration>();
@@ -62,11 +63,11 @@ namespace Infrastructure.IntegrationTests.Services
                 var sender2 = sut.Create("MyQueue");
 
                 // assert
-                Assert.Same(sender, sender2);
+                sender.Should().BeSameAs(sender2);
         }
 
          [Fact]
-        public void Create_GivenDifferentQueue_ShouldReturnDifferentSenderInstance()
+        public void WhenGivenDifferentQueue_ShouldReturnDifferentSenderInstance()
         {
                 // arrange
                 var configuration = new Mock<IServiceBusConfiguration>();
@@ -80,7 +81,7 @@ namespace Infrastructure.IntegrationTests.Services
                 var sender2 = sut.Create("MyQueue2");
 
                 // assert
-                Assert.NotSame(sender, sender2);
+                sender.Should().NotBeSameAs(sender2);
         }
     }
 

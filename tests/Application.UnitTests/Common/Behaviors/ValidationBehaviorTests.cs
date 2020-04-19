@@ -7,7 +7,7 @@ using CleanFunc.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
 using Moq;
-using Shouldly;
+using FluentAssertions;
 using Xunit;
 
 namespace Application.UnitTests.Common.Behaviors
@@ -42,7 +42,7 @@ namespace Application.UnitTests.Common.Behaviors
                                             new CancellationToken(),
                                             mockHandler.Object));
 
-            exception.ShouldBeNull();
+            exception.Should().BeNull();
             mockHandler.Verify(_ => _(), Times.Once);
         }
 
@@ -61,7 +61,7 @@ namespace Application.UnitTests.Common.Behaviors
                                             new CancellationToken(),
                                             mockHandler.Object));
 
-            exception.ShouldBeNull();
+            exception.Should().BeNull();
             mockHandler.Verify(_ => _(), Times.Once);
         }
 
@@ -81,9 +81,9 @@ namespace Application.UnitTests.Common.Behaviors
                                             mockHandler.Object));
 
 
-            exception.ShouldNotBeNull();
-            exception.ShouldBeOfType<CleanFunc.Application.Common.Exceptions.ValidationException>();
-            (exception as CleanFunc.Application.Common.Exceptions.ValidationException).Errors.Count().ShouldBe(1);
+            exception.Should().NotBeNull();
+            exception.Should().BeOfType<CleanFunc.Application.Common.Exceptions.ValidationException>();
+            (exception as CleanFunc.Application.Common.Exceptions.ValidationException).Errors.Count().Should().Be(1);
             mockHandler.Verify(_ => _(), Times.Never);
         }
 

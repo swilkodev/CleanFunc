@@ -4,7 +4,7 @@ using CleanFunc.Application.Common.Interfaces;
 using CleanFunc.Infrastructure.ServiceBus;
 using Moq;
 using Xunit;
-using Shouldly;
+using FluentAssertions;
 using Microsoft.Azure.ServiceBus;
 
 namespace Infrastructure.IntegrationTests.ServiceBus
@@ -26,8 +26,8 @@ namespace Infrastructure.IntegrationTests.ServiceBus
             sut.EnrichAsync(message);
 
             // assert
-            message.UserProperties.ShouldContainKey("$AzureWebJobsParentId");
-            message.UserProperties["$AzureWebJobsParentId"].ShouldBe(guid);
+            message.UserProperties.Should().ContainKey("$AzureWebJobsParentId");
+            message.UserProperties["$AzureWebJobsParentId"].Should().Be(guid);
         }
     }
 }

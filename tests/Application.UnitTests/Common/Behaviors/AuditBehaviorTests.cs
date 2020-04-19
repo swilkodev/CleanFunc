@@ -7,8 +7,8 @@ using CleanFunc.Application.Common.Models;
 using CleanFunc.Application.Issuers.Commands.CreateIssuer;
 using MediatR;
 using Moq;
-using Shouldly;
 using Xunit;
+using FluentAssertions;
 
 namespace Application.UnitTests.Common.Behaviors
 {
@@ -58,8 +58,8 @@ namespace Application.UnitTests.Common.Behaviors
                                                         mockFailHandler.Object)
             );
 
-            exception.ShouldNotBeNull();
-            exception.Message.ShouldBe(ErrorMessage);
+            exception.Should().NotBeNull();
+            exception.Message.Should().Be(ErrorMessage);
 
             mockAuditor.Verify(x => x.AddAsync(It.Is<Audit>(a => a.Outcome == AuditOutcome.Failure 
                                                                 && a.Reason == ErrorMessage
@@ -80,7 +80,7 @@ namespace Application.UnitTests.Common.Behaviors
                                                         mockSuccessHandler.Object)
             );
 
-            exception.ShouldBeNull();
+            exception.Should().BeNull();
             mockAuditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
             mockSuccessHandler.Verify(_ => _(), Times.Once);
         }
@@ -98,8 +98,8 @@ namespace Application.UnitTests.Common.Behaviors
                                                         mockFailHandler.Object)
             );
 
-            exception.ShouldNotBeNull();
-            exception.Message.ShouldBe(ErrorMessage);
+            exception.Should().NotBeNull();
+            exception.Message.Should().Be(ErrorMessage);
 
             mockAuditor.Verify(x => x.AddAsync(It.IsAny<Audit>()), Times.Never);
             mockFailHandler.Verify(_ => _(), Times.Once);

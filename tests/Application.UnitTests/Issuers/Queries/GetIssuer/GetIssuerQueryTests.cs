@@ -5,7 +5,7 @@ using AutoMapper;
 using CleanFunc.Application.Common.Interfaces;
 using CleanFunc.Application.Issuers.Queries.GetIssuer;
 using CleanFunc.Application.UnitTests.Common;
-using Shouldly;
+using FluentAssertions;
 using Xunit;
 
 namespace CleanFunc.Application.UnitTests.Issuers.Queries.GetIssuer
@@ -32,10 +32,10 @@ namespace CleanFunc.Application.UnitTests.Issuers.Queries.GetIssuer
 
             var result = await sut.Handle(query, CancellationToken.None);
 
-            result.ShouldBeOfType<GetIssuerResponse>();
+            result.Should().BeOfType<GetIssuerResponse>();
             
-            result.Issuer.ShouldNotBeNull();
-            result.Issuer.Name.ShouldBe("SAW Beer Pty Ltd");
+            result.Issuer.Should().NotBeNull();
+            result.Issuer.Name.Should().Be("SAW Beer Pty Ltd");
         }
     }
 }

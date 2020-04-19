@@ -4,6 +4,7 @@ using NetArchTest.Rules;
 using System.Reflection;
 using System.Text;
 using CleanFunc.FunctionApp.Base;
+using FluentAssertions;
 
 namespace Solution.ArchitectureTests
 {
@@ -25,7 +26,7 @@ namespace Solution.ArchitectureTests
                 .GetResult();
             
             Assert.True(result.IsSuccessful, GetErrorMessage(result));
-        }
+        }   
         
         [Fact]
         public void FunctionApp_TypesOtherThanStartup_MustNotDependOnInfrastructure()

@@ -3,7 +3,7 @@ using CleanFunc.Infrastructure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using Shouldly;
+using FluentAssertions;
 
 namespace Infrastructure.IntegrationTests.ServiceBus
 {
@@ -26,8 +26,8 @@ namespace Infrastructure.IntegrationTests.ServiceBus
             };
 
             // assert
-            sut.DefaultConnectionString.ShouldBe(DummyServiceBusConnectionString);
-            sut.OtherConnectionStrings.ShouldBeEmpty();
+            sut.DefaultConnectionString.Should().Be(DummyServiceBusConnectionString);
+            sut.OtherConnectionStrings.Should().BeEmpty();
         }
 
         [Fact]
@@ -47,10 +47,10 @@ namespace Infrastructure.IntegrationTests.ServiceBus
             };
 
             // assert
-            sut.DefaultConnectionString.ShouldBe(DummyServiceBusConnectionString);
-            sut.OtherConnectionStrings.Count.ShouldBe(2);
-            sut.OtherConnectionStrings.ShouldContainKey("Queue1");
-            sut.OtherConnectionStrings.ShouldContainKey("Topic1");
+            sut.DefaultConnectionString.Should().Be(DummyServiceBusConnectionString);
+            sut.OtherConnectionStrings.Count.Should().Be(2);
+            sut.OtherConnectionStrings.Should().ContainKey("Queue1");
+            sut.OtherConnectionStrings.Should().ContainKey("Topic1");
         }
 
         private static IConfiguration SetupConfiguration(List<KeyValuePair<string, string>> configSettings)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CleanFunc.Infrastructure.Files;
 using Xunit;
 using CsvHelper.Configuration;
-using Shouldly;
+using FluentAssertions;
 using System.Globalization;
 
 namespace Infrastructure.IntegrationTests.Files
@@ -31,15 +31,15 @@ namespace Infrastructure.IntegrationTests.Files
             var records = await sut.ReadAsync<FooRecord>(ms);
 
             // assert
-            records.Count().ShouldBe(2);
+            records.Count().Should().Be(2);
             var recordOne = records.First();
-            recordOne.SomeField.ShouldBe("TEST");
-            recordOne.AnotherField.ShouldBe("TEST2");
-            recordOne.Done.ShouldBe(true);
+            recordOne.SomeField.Should().Be("TEST");
+            recordOne.AnotherField.Should().Be("TEST2");
+            recordOne.Done.Should().Be(true);
             var recordTwo = records.Skip(1).First();
-            recordTwo.SomeField.ShouldBe("TEST3");
-            recordTwo.AnotherField.ShouldBe("TEST4");
-            recordTwo.Done.ShouldBe(false);
+            recordTwo.SomeField.Should().Be("TEST3");
+            recordTwo.AnotherField.Should().Be("TEST4");
+            recordTwo.Done.Should().Be(false);
         }
     }
 }

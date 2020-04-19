@@ -11,7 +11,7 @@ using CleanFunc.Application.Issuers.Queries.ExportIssuers;
 using CleanFunc.Application.UnitTests.Common;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Shouldly;
+using FluentAssertions;
 using Xunit;
 using CleanFunc.Application.Issuers.Models;
 
@@ -46,11 +46,11 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
             // assert
             fileBuilder.Verify();
             
-            result.ShouldBeOfType<ExportIssuersResponse>();
-            result.ShouldNotBeNull();
-            result.ContentType.ShouldBe("text/csv");
-            result.Content.ShouldBe(fileData);
-            result.FileName.ShouldBe("Issuers.csv");
+            result.Should().BeOfType<ExportIssuersResponse>();
+            result.Should().NotBeNull();
+            result.ContentType.Should().Be("text/csv");
+            result.Content.Should().BeSameAs(fileData);
+            result.FileName.Should().Be("Issuers.csv");
         }
 
         [Fact]
@@ -70,8 +70,8 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
 
             var databaseRecords = await _context.GetAll();
             
-            records.ShouldNotBeEmpty();
-            records.Count().ShouldBe(databaseRecords.Count());
+            records.Should().NotBeEmpty();
+            records.Count().Should().Be(databaseRecords.Count());
 
         }
 
@@ -92,10 +92,10 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
 
             var databaseRecords = await _context.GetWhere(_ => _.Id == query.Id);
             
-            records.ShouldNotBeEmpty();
-            records.Count().ShouldBe(databaseRecords.Count());
-            records.First().Name.ShouldBe(databaseRecords.First().Name);
-            records.First().CreatedDate.ShouldBe(databaseRecords.First().CreatedDate);
+            records.Should().NotBeEmpty();
+            records.Count().Should().Be(databaseRecords.Count());
+            records.First().Name.Should().Be(databaseRecords.First().Name);
+            records.First().CreatedDate.Should().Be(databaseRecords.First().CreatedDate);
         }
     }
 }
