@@ -26,13 +26,14 @@ $connectionString=az servicebus namespace authorization-rule keys list --resourc
 
 $jsonObject = @{
     IsEncrypted=$false
-    Values= @{
+    Values = @{
         AzureWebJobsStorage = "UseDevelopmentStorage=true"
         ServiceBusConnectionString = $connectionString
         CosmosDBEndpoint = "https://localhost:8081"
         CosmosDBAccountKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
         UseInMemoryDatabase = $true
     }
+}
 
 $json = $jsonObject | ConvertTo-Json
 Set-Content -Path ..\src\FunctionApp\local.settings.json -Value $json
