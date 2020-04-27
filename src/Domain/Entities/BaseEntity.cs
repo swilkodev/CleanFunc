@@ -8,6 +8,6 @@ namespace CleanFunc.Domain.Entities
         public TId Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get;set;}
-
+        
     }
 }

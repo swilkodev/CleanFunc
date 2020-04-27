@@ -7,19 +7,18 @@ using CleanFunc.Application.Common.Interfaces;
 using CleanFunc.Application.Common.Mappings;
 using CleanFunc.Domain.Entities;
 using CleanFunc.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 
-namespace CleanFunc.Application.UnitTests.Common
+namespace CleanFunc.Application.UnitTests
 {
     public sealed class QueryTestFixture : IDisposable
     {
         public QueryTestFixture()
         {
-            var dateTimeService = new Mock<IDateTime>();
-            dateTimeService.Setup(_ => _.Now).Returns(new DateTime(3000, 1, 1));
-            
-            Context = new IssuerRepository(dateTimeService.Object); // ApplicationDbContextFactory.Create();
+            Context = ApplicationDbContextFactory.Create();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -29,18 +28,13 @@ namespace CleanFunc.Application.UnitTests.Common
             Mapper = configurationProvider.CreateMapper();
         }
 
-        // public TRepository GetRepository<TRepository>()
-        // {
-            
-        // }
-
-        public IIssuerRepository Context { get; }
+        public ApplicationDbContext  Context { get; }
 
         public IMapper Mapper { get; }
 
         public void Dispose()
-        {
-        //     ApplicationDbContextFactory.Destroy(Context);
+        {    
+             ApplicationDbContextFactory.Destroy(Context);
         }
     }
 

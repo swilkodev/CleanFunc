@@ -8,6 +8,8 @@ using CleanFunc.Infrastructure.ServiceBus;
 using CleanFunc.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CleanFunc.Infrastructure
 {
@@ -17,8 +19,37 @@ namespace CleanFunc.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {   
             services.AddTransient<IDateTime, DateTimeService>();        
-            services.AddTransient<IIssuerRepository, IssuerRepository>();
             
+            var serviceProvider = services.BuildServiceProvider();
+            IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
+
+            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseInMemoryDatabase("AdminDb"));
+            }
+            else
+            {
+                string cosmosDbEndpoint = configuration.GetValue<string>("CosmosDBEndpoint");
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseCosmos(
+                        cosmosDbEndpoint,
+                        configuration.GetValue<string>("CosmosDBAccountKey"),
+                        databaseName: "AdminDb")
+                        );
+            }
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            // if(cosmosDbEndpoint.Contains("localhost"))
+            // {
+            //     serviceProvider = services.BuildServiceProvider();
+                
+            //     AdminDbContextSeed.SeedSampleDataAsync(
+            //         serviceProvider.GetService<AdminDbContext>(),
+            //         serviceProvider.GetService<IDateTime>()
+            //     );
+            // }
+
             services.AddTransient<IAuditor, Auditor>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddCsvFile(Assembly.GetExecutingAssembly());

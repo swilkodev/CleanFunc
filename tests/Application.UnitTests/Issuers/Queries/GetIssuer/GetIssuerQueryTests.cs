@@ -13,7 +13,7 @@ namespace CleanFunc.Application.UnitTests.Issuers.Queries.GetIssuer
     [Collection("QueryTests")]
     public class GetIssuerQueryTests
     {
-        private readonly IIssuerRepository _context;
+        private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         
         public GetIssuerQueryTests(QueryTestFixture fixture)

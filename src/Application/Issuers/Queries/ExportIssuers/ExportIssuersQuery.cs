@@ -21,19 +21,22 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
 
         public class ExportIssuersQueryHandler : IRequestHandler<ExportIssuersQuery, ExportIssuersResponse>
         {
-            private readonly IIssuerRepository _issuerRepository;
+            private readonly IApplicationDbContext _dbContext;
             private readonly IMapper _mapper;
             private readonly ICsvFileBuilder _csvFileBuilder;
             private readonly ILogger<ExportIssuersQueryHandler> _logger;
 
-            public ExportIssuersQueryHandler(IIssuerRepository issuerRepository, IMapper mapper, ICsvFileBuilder fileBuilder, ILogger<ExportIssuersQueryHandler> logger)
+            public ExportIssuersQueryHandler(IApplicationDbContext dbContext, 
+                                                IMapper mapper, 
+                                                ICsvFileBuilder fileBuilder, 
+                                                ILogger<ExportIssuersQueryHandler> logger)
             {
                 Guard.Against.Null(fileBuilder, nameof(fileBuilder));
-                Guard.Against.Null(issuerRepository, nameof(issuerRepository));
+                Guard.Against.Null(dbContext, nameof(dbContext));
                 Guard.Against.Null(mapper, nameof(mapper));
                 Guard.Against.Null(logger, nameof(logger));
 
-                _issuerRepository = issuerRepository; 
+                _dbContext = dbContext; 
                 _mapper = mapper; 
                 _csvFileBuilder = fileBuilder; 
                 _logger = logger;
@@ -44,11 +47,11 @@ namespace CleanFunc.Application.Issuers.Queries.ExportIssuers
                 IEnumerable<Issuer> issuers;
                 if(request.Id == null)
                 {
-                    issuers = await _issuerRepository.GetAll();
+                    issuers = _dbContext.Issuers.ToList();
                 }
                 else
                 {
-                    issuers = await _issuerRepository.GetWhere(x => x.Id == request.Id);
+                    issuers = _dbContext.Issuers.Where(x => x.Id == request.Id);
                 }
                 var records = issuers.AsQueryable()
                         .ProjectTo<IssuerRecord>(_mapper.ConfigurationProvider)

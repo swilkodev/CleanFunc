@@ -31,16 +31,16 @@ namespace CleanFunc.Application.Issuers.Commands.CreateIssuer
 
         public class CreateIssuerCommandHandler : IRequestHandler<CreateIssuerCommand, Guid>
         {
-            private readonly IIssuerRepository issuerRepository;
+            private readonly IApplicationDbContext dbContext;
             private readonly IMediator mediator;
 
-            public CreateIssuerCommandHandler(IIssuerRepository issuerRepository,
+            public CreateIssuerCommandHandler(IApplicationDbContext dbContext,
                                                 IMediator mediator)
             {
-                Guard.Against.Null(issuerRepository, nameof(issuerRepository));
+                Guard.Against.Null(dbContext, nameof(dbContext));
                 Guard.Against.Null(mediator, nameof(mediator));
 
-                this.issuerRepository = issuerRepository; 
+                this.dbContext = dbContext; 
                 
                 this.mediator = mediator;
             }
@@ -54,7 +54,8 @@ namespace CleanFunc.Application.Issuers.Commands.CreateIssuer
                     CreatedDate = DateTime.Now
                 };
 
-                await issuerRepository.Add(entity);
+                dbContext.Issuers.Add(entity);
+                await dbContext.SaveChangesAsync(cancellationToken);
 
                 // publish application event
                 await mediator.Publish(new IssuerCreated { IssuerId = entity.Id }, cancellationToken);

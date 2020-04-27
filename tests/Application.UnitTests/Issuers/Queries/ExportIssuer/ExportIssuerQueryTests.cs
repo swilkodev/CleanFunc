@@ -15,12 +15,12 @@ using FluentAssertions;
 using Xunit;
 using CleanFunc.Application.Issuers.Models;
 
-namespace Application.UnitTests.Issuers.Queries.ExportIssuer
+namespace CleanFunc.Application.UnitTests.Issuers.Queries.ExportIssuer
 {
     [Collection("QueryTests")]
     public class ExportIssuerQuerysTests
     {
-        private readonly IIssuerRepository _context;
+        private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         
         public ExportIssuerQuerysTests(QueryTestFixture fixture)
@@ -68,11 +68,8 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
             // act
             await sut.Handle(query, CancellationToken.None);
 
-            var databaseRecords = await _context.GetAll();
-            
             records.Should().NotBeEmpty();
-            records.Count().Should().Be(databaseRecords.Count());
-
+            records.Count().Should().Be(_context.Issuers.Count());
         }
 
         [Fact]
@@ -90,7 +87,7 @@ namespace Application.UnitTests.Issuers.Queries.ExportIssuer
             // act
             await sut.Handle(query, CancellationToken.None);
 
-            var databaseRecords = await _context.GetWhere(_ => _.Id == query.Id);
+            var databaseRecords = _context.Issuers.Where(_ => _.Id == query.Id);
             
             records.Should().NotBeEmpty();
             records.Count().Should().Be(databaseRecords.Count());

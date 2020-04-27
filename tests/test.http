@@ -32,6 +32,12 @@ SAW Beer Pty Ltd,02/12/2020 11:33:51
 Microsoft Corporation,02/11/2020 11:33:51
 "Amazon.com, Inc.",02/11/2020 23:33:51
 
+###
+POST http://localhost:7071/api/issuers/import
+Content-Type: text/csv
+
+Name,CreatedDate
+Google LLC,03/12/2020 11:33:51
 
 ### Import a list of issuers with duplicates
 POST http://localhost:7071/api/issuers/import

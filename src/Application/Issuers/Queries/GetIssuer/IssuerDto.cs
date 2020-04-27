@@ -8,6 +8,8 @@ namespace CleanFunc.Application.Issuers.Queries.GetIssuer
     //Map from Domain Object to Dto(Contract)
     public class IssuerDto : IMapFrom<Issuer>
     {
+        public string Id {get;set;}
+
         public string Name {get;set;}
 
         public DateTime CreatedDate {get;set;}
