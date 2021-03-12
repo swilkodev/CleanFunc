@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
+using Microsoft.Azure.Cosmos;
 
 namespace CleanFunc.Infrastructure
 {
@@ -18,7 +20,7 @@ namespace CleanFunc.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {   
-            services.AddTransient<IDateTime, DateTimeService>();        
+            services.AddTransient<IDateTime, DateTimeService>();
             
             var serviceProvider = services.BuildServiceProvider();
             IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
@@ -31,12 +33,19 @@ namespace CleanFunc.Infrastructure
             else
             {
                 string cosmosDbEndpoint = configuration.GetValue<string>("CosmosDBEndpoint");
-                services.AddDbContext<ApplicationDbContext>(options =>
+                string accountKey = configuration.GetValue<string>("CosmosDBAccountKey");
+
+                services.AddDbContext<ApplicationDbContext>(options => {
                     options.UseCosmos(
                         cosmosDbEndpoint,
-                        configuration.GetValue<string>("CosmosDBAccountKey"),
-                        databaseName: "AdminDb")
-                        );
+                        accountKey,
+                        databaseName: "AdminDb");
+                });
+                
+                using var client = new CosmosClient(cosmosDbEndpoint, accountKey);
+                var db = client.CreateDatabaseIfNotExistsAsync("AdminDb").GetAwaiter().GetResult();
+                var container = db.Database.CreateContainerIfNotExistsAsync("Issuer","/Name").GetAwaiter().GetResult();
+
             }
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
@@ -54,10 +63,13 @@ namespace CleanFunc.Infrastructure
             services.AddTransient<IEmailService, EmailService>();
             services.AddCsvFile(Assembly.GetExecutingAssembly());
 
+            // service bus factory is a singleton to ensure new connections are only
+            // made once per queue/topic for the lifetime of the app
+            services.AddSingleton<IServiceBusConfiguration, ServiceBusConfiguration>();
+            services.AddSingleton<IBusEndpointFactory,AzureServiceBusEndpointFactory>();
+
             // note: the below dependencies use a scope context (per call scope)
-            services.AddScoped<IServiceBusConfiguration, ServiceBusConfiguration>();
             services.AddScoped<ICallContext, MutableCallContext>();
-            services.AddScoped<IBusEndpointFactory,AzureServiceBusEndpointFactory>();
             services.AddScoped<IMessageEnricher,AzureServiceBusCausalityEnricher>();
             return services;
         }
