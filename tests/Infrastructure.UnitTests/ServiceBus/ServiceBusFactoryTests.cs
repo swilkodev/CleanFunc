@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
 
 namespace Infrastructure.IntegrationTests.Services
 {
@@ -19,8 +21,11 @@ namespace Infrastructure.IntegrationTests.Services
                 var configuration = new Mock<IServiceBusConfiguration>();
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
+                
+                var serviceProvider = new Mock<IServiceProvider>();
+                serviceProvider.Setup(_ => _.GetService(typeof(IEnumerable<IMessageEnricher>))).Returns(Enumerable.Empty<IMessageEnricher>());
 
-                var sut = new AzureServiceBusEndpointFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var sut = new AzureServiceBusEndpointFactory(configuration.Object, serviceProvider.Object);
 
                 // act
                 var sender = sut.Create<Foo>();
@@ -38,7 +43,10 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
 
-                var sut = new AzureServiceBusEndpointFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var serviceProvider = new Mock<IServiceProvider>();
+                serviceProvider.Setup(_ => _.GetService(typeof(IEnumerable<IMessageEnricher>))).Returns(Enumerable.Empty<IMessageEnricher>());
+
+                var sut = new AzureServiceBusEndpointFactory(configuration.Object, serviceProvider.Object);
 
                 // act
                 var sender = sut.Create<Foo>();
@@ -56,7 +64,10 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
 
-                var sut = new AzureServiceBusEndpointFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var serviceProvider = new Mock<IServiceProvider>();
+                serviceProvider.Setup(_ => _.GetService(typeof(IEnumerable<IMessageEnricher>))).Returns(Enumerable.Empty<IMessageEnricher>());
+
+                var sut = new AzureServiceBusEndpointFactory(configuration.Object, serviceProvider.Object);
 
                 // act
                 var sender = sut.Create("MyQueue");
@@ -74,7 +85,10 @@ namespace Infrastructure.IntegrationTests.Services
                 configuration.SetupGet(_ => _.DefaultConnectionString).Returns(DummyServiceBusConnectionString);
                 configuration.SetupGet(_ => _.OtherConnectionStrings).Returns(new System.Collections.Generic.Dictionary<string, string>());
                 
-                var sut = new AzureServiceBusEndpointFactory(configuration.Object, Enumerable.Empty<IMessageEnricher>());
+                var serviceProvider = new Mock<IServiceProvider>();
+                serviceProvider.Setup(_ => _.GetService(typeof(IEnumerable<IMessageEnricher>))).Returns(Enumerable.Empty<IMessageEnricher>());
+
+                var sut = new AzureServiceBusEndpointFactory(configuration.Object, serviceProvider.Object);
 
                 // act
                 var sender = sut.Create("MyQueue");

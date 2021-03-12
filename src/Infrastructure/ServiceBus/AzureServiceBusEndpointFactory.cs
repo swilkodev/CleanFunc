@@ -4,22 +4,23 @@ using Ardalis.GuardClauses;
 using Microsoft.Extensions.Configuration;
 using CleanFunc.Application.Common.Interfaces;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanFunc.Infrastructure.ServiceBus
 {
     public class AzureServiceBusEndpointFactory : IBusEndpointFactory
     {
         private IServiceBusConfiguration _configuration;
-        private readonly IEnumerable<IMessageEnricher> _enrichers;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<string, Lazy<IBusEndpoint>> _endpointCache = new ConcurrentDictionary<string, Lazy<IBusEndpoint>>();
 
-        public AzureServiceBusEndpointFactory(IServiceBusConfiguration configuration, IEnumerable<IMessageEnricher> enrichers)
+        public AzureServiceBusEndpointFactory(IServiceBusConfiguration configuration, IServiceProvider serviceProvider)
         {
             Guard.Against.Null(configuration, nameof(configuration));
-            Guard.Against.Null(enrichers, nameof(enrichers));
+            Guard.Against.Null(serviceProvider, nameof(serviceProvider));
 
             _configuration = configuration;
-            _enrichers = enrichers;
+            _serviceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -31,6 +32,8 @@ namespace CleanFunc.Infrastructure.ServiceBus
         {
             Guard.Against.NullOrEmpty(queueOrTopicName, nameof(queueOrTopicName));
 
+            var enrichers = _serviceProvider.GetService<IEnumerable<IMessageEnricher>>();
+
             var connectionString = GetConnectionString(queueOrTopicName);
 
             string cacheKey = $"{queueOrTopicName}-{connectionString}";
@@ -38,7 +41,7 @@ namespace CleanFunc.Infrastructure.ServiceBus
             // Cache endpoint so we do not run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
             var endpoint = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(()
-                                                                        => new AzureServiceBusEndpoint(_enrichers,
+                                                                        => new AzureServiceBusEndpoint(enrichers,
                                                                                 connectionString, 
                                                                                 queueOrTopicName)));
             return endpoint.Value;
@@ -52,6 +55,8 @@ namespace CleanFunc.Infrastructure.ServiceBus
         /// <returns></returns>
         public IBusEndpoint Create<TPayload>() where TPayload: class
         {
+            var enrichers = _serviceProvider.GetService<IEnumerable<IMessageEnricher>>();
+
             var connectionString = GetConnectionString(typeof(TPayload).Name);
 
             var entityPath = typeof(TPayload).FullName.ToLowerInvariant();
@@ -61,7 +66,7 @@ namespace CleanFunc.Infrastructure.ServiceBus
             // Cache endpoint so we do not run out of available connections
             // Use of Lazy here is to guarantee value factory is only executed once as it is not idempotent
             var endpoint = _endpointCache.GetOrAdd(cacheKey, new Lazy<IBusEndpoint>(() 
-                                                                            => new AzureServiceBusEndpoint(_enrichers, 
+                                                                            => new AzureServiceBusEndpoint(enrichers, 
                                                                                 connectionString, 
                                                                                 entityPath)));
             return endpoint.Value;
